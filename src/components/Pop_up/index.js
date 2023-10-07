@@ -9,9 +9,10 @@ function Pop_up({text, title}) {
                 <h2>{title}</h2>
                 <p>
                     {text}
+                    <p>Oi</p>
                 </p>
             </div>
-        </div>
+        </div> 
     )
 }
 
