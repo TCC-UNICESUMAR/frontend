@@ -1,0 +1,88 @@
+.container-pop-up{
+    background-color: #f3f3f3;
+    padding: 10% 5%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+    border-radius: 25px;
+}
+
+.green-square-pop-up{
+    width: 2.7%;
+    background-color: #9FDDAF;
+    height: 6%;
+    color: transparent;
+    position: absolute;
+    transform: rotate(40deg);
+    margin-top: -8%;
+    margin-left: -25%;
+}
+
+.white-square-pop-up{
+    width: 3.3%;
+    border: solid 1px #9FDDAF;
+    height: 7%;
+    color: transparent;
+    position: absolute;
+    transform: rotate(40deg);
+    margin-top: -5.6%;
+    margin-left: -20%;
+}
+
+.text-pop-up{
+    width: auto;
+}
+
+.text-pop-up h2{
+    color: #3E5744;
+    font-size: 2.2vw;
+}
+
+/* Media */
+
+@media (max-width: 414px) {
+
+    .green-square-pop-up{
+        width: 8%;
+        height: 3.7%;
+        margin-top: -45%;
+        margin-left: 6%;
+    }
+    
+    .white-square-pop-up{
+        width: 10%;
+        height: 4.7%;
+        margin-left: 13%;
+        margin-top: -28%;
+    }
+
+    .container-pop-up{
+        width: 65%;
+        height: 20vh;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20%;
+    }
+
+    .text-pop-up{
+        width: 100%;
+    }
+    
+    .text-pop-up h2{
+        color: #3E5744;
+        font-size: 7vw;
+        margin-left: 3%;
+        margin-top: 15%;
+        margin-bottom: 3%;
+    }
+
+    .text-pop-up p{
+        font-size: 4.7vw;
+        padding: 0.5%;
+        margin: 0 3% 0 3%;
+    }
+
+}

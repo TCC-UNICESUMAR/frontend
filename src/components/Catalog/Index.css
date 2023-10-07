@@ -1,0 +1,8 @@
+.feed-donate{
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+}

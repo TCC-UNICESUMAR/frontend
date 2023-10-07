@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Default form */
+form{
+    border-radius: 25px;
+    background-color: #F3F3F3;
+    width: 32%;
+    max-width: 32%;
+    padding: 2%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+    margin-bottom: 5%;
+}
+
+form h2{
+    margin: auto;
+    margin-bottom: 7%;
+    margin-top: 7%;
+    font-size: 2vw;
+    font-weight: 600;
+}
+
+.field{
+    width: 72%;
+    max-width: 72%;
+    height: 1.5vw;
+    padding: 4%;
+    border-radius: 25px;
+    background-color: white;
+    border: none;
+    outline-color: #9FDDAF;
+    color: #6F6F6F;
+    font-weight: 500;
+    font-size: 1vw;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+.field::placeholder{
+    color: #AFAFAF;
+    font-size: 1vw;
+}
+
+.btn-submit{
+    width: 30vh;
+    height: 7vh;
+    align-items: center;
+    margin: auto;
+    border-radius: 25px;
+    color: white;
+    border: none;
+    font-size: 1.1vw;
+    margin-top: 2%;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #59d678;
+}
+
+.error-message{
+    color: #9c0909;
+    font-size: 1vw;
+    text-align: left;
+    margin-left: 15%;
+    margin-bottom: 4%;
+    margin-top: -2%;
+}
+
+/* Double form */
+.form-double{
+    border-radius: 25px;
+    background-color: #F3F3F3;
+    width: 50%;
+    max-width: 50%;
+    padding: 2%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+    margin-bottom: 5%;
+}
+
+.title-data-double{
+    margin: auto;
+    font-size: 1.2vw;
+    font-weight: 600;
+    margin-bottom: 2%;
+}
+
+.container-main-double{
+    display: flex;
+    margin-top: 0;
+    justify-content: flex-start;
+}
+
+.container-data-double{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+}
+
+.field-description{
+    width: 72%;
+    max-width: 72%;
+    height: 6vw;
+    padding: 4%;
+    border-radius: 25px;
+    background-color: white;
+    border: none;
+    outline-color: #9FDDAF;
+    color: #6F6F6F;
+    font-weight: 500;
+    font-size: 1vw;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+/*Media*/
+
+@media (max-width: 414px) {
+
+    form{
+        border-radius: 25px;
+        background-color: #F3F3F3;
+        width: 85%;
+        max-width: 85%;
+        padding: 2%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+        margin-top: 15%;
+    }
+
+    form h2{
+        margin: auto;
+        margin-bottom: 10%;
+        margin-top: 10%;
+        font-size: 7vw;
+        font-weight: 600;
+    }
+
+    .title-data-double{
+        font-size: 5vw;
+    }
+
+    .form-double{
+        border-radius: 25px;
+        background-color: #F3F3F3;
+        width: 85%;
+        max-width: 85%;
+        padding: 2%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+
+    .container-main-double{
+        display: block;
+        margin-top: 0;
+        justify-content: flex-start;
+    }
+
+    .field-description{
+        margin-bottom: 7%;
+        height: 10vw;
+    }
+
+    .field-description{
+        font-size: 4vw;
+    }
+
+    .field{
+        height: 3vw;
+        margin-bottom: 7%;
+    }
+
+    .field{
+        font-size: 4vw;
+    }
+
+    .field::placeholder{
+        font-size: 4vw;
+    }
+
+    .error-message{
+        font-size: 3vw;
+        margin-bottom: 6%;
+        margin-top: -4%;
+    }
+
+    .btn-submit{
+        width: 20vh;
+        height: 5vh;
+        font-size: 4vw;
+    }
+
+}
