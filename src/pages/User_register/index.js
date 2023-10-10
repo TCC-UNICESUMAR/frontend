@@ -1,23 +1,32 @@
 import * as React from "react"
 import { useForm } from "react-hook-form";
 
-import './index.css';
 import '../../default.css';
 
 import Header from '../../components/Header';
+import Api from "../../config/Service/Api";
+import { Navigate } from "react-router-dom";
 
 function User_register() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const submitData = (data) => {
+    async function userRegister(data) {
+
         console.log(data)
-    }
+
+        try {
+            await Api.post('api/v1/user/register', data);
+        } catch (err) {
+            alert('Insira os dados corretamente e tente novamente!!!');
+        }
+        
+    };
 
     return(
         <>
             <Header />
-            <form method="" onSubmit={handleSubmit(submitData)}>
+            <form method="" onSubmit={handleSubmit(userRegister)}>
             <h2>Cadastro</h2>
             <input 
                 className="field"
@@ -50,28 +59,19 @@ function User_register() {
                 className="field"
                 type="text"
                 placeholder="*CPF/CNPJ"
-                {...register("cpf_cnpj", {required: true})}
+                {...register("cnpjOrCpf", {required: true})}
             />
-            {errors?.cpf_cnpj?.type == 'required' && 
+            {errors?.cnpjOrCpf?.type == 'required' && 
                 <p className="error-message">O campo CPF/CNPJ é obrigatório.</p>
             }
             <input 
                 className="field"
                 type="text"
                 placeholder="*Telefone"
-                {...register("telephone", {required: true})}
+                {...register("phone", {required: true})}
             />
-            {errors?.telephone?.type == 'required' && 
+            {errors?.phone?.type == 'required' && 
                 <p className="error-message">O campo telefone é obrigatório.</p>
-            }
-            <input 
-                className="field"
-                type="text"
-                placeholder="*CEP"
-                {...register("cep", {required: true})}
-            />
-            {errors?.cep?.type == 'required' && 
-                <p className="error-message">O campo CEP é obrigatório.</p>
             }
             <input 
                 className="btn-submit"

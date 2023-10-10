@@ -1,6 +1,11 @@
 import './Index.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CiTrash } from "react-icons/ci";
+import { CiEdit } from "react-icons/ci";
+
 import Api from "../../config/Service/Api"
+
+import pic_about_us from './../../static/img/pic_about_us.png';
 
 
 function Product(props) {
@@ -32,39 +37,41 @@ function Product(props) {
     }
 
     return (
-        <div className="prod">
-            <div className='product-header'>
-                <h2>{props.product.name}</h2>
-            </div>
-            {/* <div>
-                    <img src={props.product.imageProductKey} />
-                </div> */}
-            <div>
-                <div className='product-footer'>
-                    <h3>Doado por {props.product.user.name}</h3>
-                    <div>
-                        {props.isEdit === true ?
-                            <button
-                                type={"button"}
-                                value={"Editar"}
-                                onClick={() => editProduct(props.product.productId)}
-                            />
-                            : null
-                        }
+        <div className="donation">
+            {
+                <div className='donation-container-img'>
+                    <img src={pic_about_us} />
+                </div>
+            }
+            <div className='container-button-donation'>
+                {props.isEdit === true ?
+                    <button
+                        className="button-donation-edit"
+                        type={"button"}
+                        value={"Editar"}
+                        onClick={() => editProduct(props.donation.product.productId)}
+                    ><CiEdit className='icon-donation' /></button>
+                    : null
+                }
 
-                        {props.isEdit === true ?
-                            <button
-                                type={"button"}
-                                value={"Excluir"}
-                                onClick={() => deleteProduct(props.product.productId)}
-                            />
-                            : null
-                        }
-                    </div>
+                {props.isEdit === true ?
+                    <button
+                        className="button-donation-delete"
+                        type={"button"}
+                        value={"Excluir"}
+                        onClick={() => deleteProduct(props.donation.product.productId)}
+                    ><CiTrash className='icon-donation'/></button>
+                    : null
+                }
+            </div>
+            <div>
+                <h2 className='donation-title'>{props.donation.product.name}</h2>
+                <p className='donation-description'>{props.donation.product.description}</p>
+                <div className='donation-second-content'>
+                    <p className='donation-category'>{props.donation.product.category.categoryName}</p>
+                    <button>Botão</button>
                 </div>
             </div>
-
-
         </div>
     );
 }

@@ -3,15 +3,15 @@ import './Index.css';
 
 function Catalog(props) {
 
-    var listProduct = [];
-    console.log('Props catalogo:',props.products)
-    for (let x = 0; x < props.products.length; x++) {
-        listProduct.push(<Product product={props.products[x]} isEdit={props.isEdit}/>)
+    var listDonations = [];
+    console.log('Props catalogo:',props.donations)
+    for (let x = 0; x < props.donations.length; x++) {
+        listDonations.push(<Product donation={props.donations[x]} isEdit={props.isEdit}/>)
     }
 
     return (
         <div className="feed-donate">
-            { listProduct }
+            { listDonations }
         </div>
     );
 }

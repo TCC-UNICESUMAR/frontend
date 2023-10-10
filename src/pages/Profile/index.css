@@ -19,3 +19,20 @@
     flex-direction: column;
     text-align: center;
 }
+
+/*Media*/
+
+@media (max-width: 414px) {
+
+    .container-main-profile{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-photo-user{
+        width: 50%;
+        max-width: 50%;
+        margin: auto;
+    }
+
+}

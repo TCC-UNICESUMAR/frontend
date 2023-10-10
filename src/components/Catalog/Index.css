@@ -2,7 +2,9 @@
     margin-top: 3%;
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
-    max-width: 100%;
+    width: 90%;
+    max-width: 90%;
     flex-wrap: wrap;
+    margin: auto;
+    padding: 2%;
 }

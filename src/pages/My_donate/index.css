@@ -1,18 +1,18 @@
-.title-page-feed{
+.title-page-mydonates{
     margin: auto;
     margin-top: 4%;
     margin-bottom: 3%;
     font-size: 2vw;
     font-weight: 600;
-    width: 20.3%;
+    width: 16%;
 }
 
 /*Media*/
 
 @media (max-width: 414px) {
 
-    .title-page-feed{
-        width: 70%;
+    .title-page-mydonates{
+        width: 55.4%;
         margin: auto;
         margin-bottom: 10%;
         margin-top: 10%;

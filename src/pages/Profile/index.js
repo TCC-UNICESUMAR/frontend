@@ -1,6 +1,7 @@
-
+import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import Header from "../../components/Header";
 import Api from "../../config/Service/Api";
 
@@ -8,28 +9,28 @@ import '../../default.css';
 import './index.css';
 
 function Profile() {
+
+    const [response, setResponse] = useState('');
+    const accessToken = localStorage.getItem('accessToken');
+    
+    async function getUser() {
+        try {
+            const data = await Api.get('/api/v1/user/getUserBySession', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })  
+           setResponse(data.data.data);
+        } catch (error) {
+            alert('Error Get User By Session! Try again!');
+        }
+    }
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const navigate = useNavigate();
-
-   async function createDonate(data) {
-
-        console.log(data)
-
-        try {
-            const response = await Api.post('', data);  
-
-            localStorage.setItem('accessToken',response.data.data.accessToken)
-            localStorage.setItem('refreshToken',response.data.data.refreshToken)
-
-            navigate("/feed", { replace: true });
-        } catch (err) {
-            alert('Insira os dados corretamente e tente novamente!!!');
-        }
-
-        return data;
-
-    };
+    useEffect(() => {
+        getUser();
+    }, [])
 
     return(
         <>
@@ -38,33 +39,37 @@ function Profile() {
                 <div className="container-photo-user">
                     <img></img>
                     <h2>Username</h2>
-                    <Link to="">x doações ativas</Link>
+                    <Link to="/minhas_doacoes">x doações ativas</Link>
                 </div>
-                <form className="form-double" onSubmit={handleSubmit(createDonate)}>
+                <form className="form-double" onSubmit={handleSubmit()}>
                     <h2>Dados da conta</h2>
                         <div className="container-main-double">
                             <div className="container-data-double">
                                 <h3 className="title-data-double">Dados pessoais</h3>
                                 <input 
                                     className="field"
+                                    value={response.name}
                                     type="text"
                                     placeholder="*Nome"
                                     {...register("name", {required: true})}
                                 />
                                 <input 
                                     className="field"
+                                    value={response.cnpjOrCpf}
                                     type="text"
                                     placeholder="*CPF/CNPJ"
-                                    {...register("cpf_cnpj", {required: true})}
+                                    {...register("cnpjOrCpf", {required: true})}
                                 />
                                 <input 
                                     className="field"
+                                    value={response.phone}
                                     type="text"
                                     placeholder="*Telefone"
-                                    {...register("telephone", {required: true})}
+                                    {...register("phone", {required: true})}
                                 />
                                 <input 
                                     className="field"
+                                    value={response.cep}
                                     type="text"
                                     placeholder="*CEP"
                                     {...register("cep", {required: true})}
@@ -72,8 +77,9 @@ function Profile() {
                             </div>
                             <div className="container-data-double">
                                 <h3 className="title-data-double">Dados do sistema</h3>
-                                <input 
+                                <input
                                     className="field"
+                                    value={response.email}
                                     type="text"
                                     placeholder="*E-mail"
                                     {...register("email", {required: true})}
@@ -101,7 +107,7 @@ function Profile() {
                     <input 
                         className="btn-submit"
                         type="submit"
-                        value="Cadastrar"
+                        value="Enviar"
                     />
                 </form>
             </div>
