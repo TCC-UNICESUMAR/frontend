@@ -1,11 +1,12 @@
-import './Index.css';
 import { useNavigate } from 'react-router-dom';
-import { CiTrash } from "react-icons/ci";
-import { CiEdit } from "react-icons/ci";
 
 import Api from "../../config/Service/Api"
 
+import './Index.css';
+
 import pic_about_us from './../../static/img/pic_about_us.png';
+import { CiTrash } from "react-icons/ci";
+import { CiEdit } from "react-icons/ci";
 
 
 function Product(props) {
@@ -15,7 +16,7 @@ function Product(props) {
 
     async function editProduct(id) {
         try {
-            navigate(`/myDonate/${id}`, { replace: true });
+            navigate(`/minha_doacao/${id}`, { replace: true });
         } catch (error) {
             alert('Edit failed! Try again.');
         }
@@ -23,7 +24,7 @@ function Product(props) {
 
     async function deleteProduct(id) {
         try {
-            await Api.delete(`/api/v1/product/${id}`, {
+            await Api.delete(`/api/v1/donation/${id}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -50,7 +51,7 @@ function Product(props) {
                         type={"button"}
                         value={"Editar"}
                         onClick={() => editProduct(props.donation.product.productId)}
-                    ><CiEdit className='icon-donation' /></button>
+                    ><CiEdit className='icon-donation'/></button>
                     : null
                 }
 
@@ -60,7 +61,7 @@ function Product(props) {
                         type={"button"}
                         value={"Excluir"}
                         onClick={() => deleteProduct(props.donation.product.productId)}
-                    ><CiTrash className='icon-donation'/></button>
+                    ><CiTrash className='icon-donation' /></button>
                     : null
                 }
             </div>

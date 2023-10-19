@@ -1,40 +1,45 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Api from '../../config/Service/Api'
 
+import '../../default.css';
 import Header from "../../components/Header";
 
-import '../../default.css';
-
-
-function Create_donate() {
+function Edit_donate() {
 
     const accessToken = localStorage.getItem('accessToken');
 
-    const navigate = useNavigate();
-
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    async function createDonate(data) {
-        console.log(data)
+
+    const { donationId } = useParams();
+
+    const [response, setResponse] = useState('');
+
+    async function getProductById() {
         try {
-            await Api.post("/api/v1/donation", data, {
+            const data = await Api.get(`api/v1/donation/${donationId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            navigate("/feed", { replace: true });
-
-        } catch (err) {
-            alert('Prencha todos os campos corretamente!!!');
+            setResponse(data.data.data);
+            console.log("Response donate: ",response)
+        } catch (error) {
+            alert('Error recovering category name! Try again!');
         }
-    };
+    }
+
+    useEffect(() => {
+        getProductById();
+    }, [])
+
 
     return (
         <>
             <Header />
-            <form className="form-double" onSubmit={handleSubmit(createDonate)}>
+            <form className="form-double" onSubmit={handleSubmit("")}>
                 <h2>Dados da doação</h2>
                 <div className="container-main-double">
                     <div className="container-data-double">
@@ -146,4 +151,4 @@ function Create_donate() {
     )
 }
 
-export default Create_donate;
+export default Edit_donate;

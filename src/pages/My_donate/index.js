@@ -27,9 +27,9 @@ function My_donate() {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
-            
+
             setDonations(response.data.data.content)
-            
+
         } catch (error) {
             alert('Error Get Products By User! Try again!');
         }
@@ -39,11 +39,11 @@ function My_donate() {
         fetchMoreProducts();
     }, [])
 
-    return(
+    return (
         <>
             <Header />
             <h2 className="title-page-mydonates">Minhas doações</h2>
-            <Catalog donations={donations} isEdit={true}/>
+            <Catalog donations={donations} isEdit={true} />
         </>
     )
 }

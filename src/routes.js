@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Create_donate from './pages/Create_donate';
+import Dashboard from './pages/Dashboard';
+import Edit_donate from './pages/Edit_donate';
 import Feed from './pages/Feed';
 import Login from './pages/Login';
 import My_donate from './pages/My_donate';
@@ -21,6 +23,8 @@ function RoutesApp(){
                 <Route path='/criar_doacao' element={ <Create_donate /> } />
                 <Route path='/perfil' element={ <Profile /> } />
                 <Route path='/minhas_doacoes' element={ <My_donate /> } />
+                <Route path='/minha_doacao/:productId' element={ <Edit_donate /> } />
+                <Route path='/dashboard' element={ <Dashboard /> } />
                 <Route path='*' element={ <Not_found /> } />
             </Routes>
         </BrowserRouter>

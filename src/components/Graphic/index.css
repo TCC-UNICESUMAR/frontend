@@ -1,0 +1,15 @@
+.conatiner-dash{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 35%;
+    margin: auto;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+.title-dash{
+    font-size: 1.4vw;
+    margin-top: 2%;
+    font-weight: 500;
+}
