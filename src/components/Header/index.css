@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-header{
+.header-desktop{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,24 +11,24 @@ header{
     margin-bottom: 2%;
 }
 
-.link-header-desk{
-    width: 12%;
+.link-header-desktop{
+    width: 25%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
-header img{
+.header-desktop img{
     width: 9%;
 }
 
-header div a{
+.header-desktop div a{
     font-size: 1.2vw;
     color: black;
     transition: 0.5s;
     display: inherit;
 }
 
-header div a:hover{
+.header-desktop div a:hover{
     font-size: 1.2vw;
     color: #3f3f3f;
     border-bottom: 1px solid #3f3f3f;
@@ -38,11 +38,11 @@ header div a:hover{
     display: none;
 }
 
-header a{
+.header-desktop a{
     text-decoration: none;
 }
 
-.button-header{
+.button-header-login{
     background-color: #59d678;
     padding: 1% 2%;
     border-radius: 25px;
@@ -54,26 +54,66 @@ header a{
     font-size: 1vw;
 }
 
-.button-header:hover{
+.button-header-login:hover{
     background-color: #4bbd68;
+}
+
+.container-profile{
+    width: 3vw;
+    height: 5vh;
+}
+
+.dropdown-profile{
+    background-color: #3f3f3f;
+}
+
+.icon-profile{
+    width: 100%;
+    height: 100%;
+    color: #59D678;
+}
+
+/*Dropdown*/
+.menu-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-button{
+    cursor: pointer;
+    border-radius: 90px;
+}
+
+.menu.active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu{
+    opacity: 1;
 }
 
 /*Media*/
 
 @media (max-width: 414px) {
 
-    header img{
-        width: 25%;
-        z-index: 2;
-    }
-
-    .link-header-desk{
+    .header-desktop{
         display: none;
     }
 
     .header-mobile{
-        display: block !important;
+        display: flex !important;
         font-size: 5vw;
+        align-items: center;
+    }
+
+    .header-mobile img{
+        width: 25%;
+        height: 8vh;
+        z-index: 2;
+        margin-left: 50%;
     }
 
     nav {
@@ -121,7 +161,18 @@ header a{
         flex-direction: column;
         justify-content: flex-start;
         justify-content: space-between;
-        height: 30vw;
+        height: 60vw;
+        margin-top: 40%;
+        padding: 3%;
+    }
+
+    .container-mobile-link-off{
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        justify-content: space-between;
+        height: 40vw;
         margin-top: 40%;
         padding: 3%;
     }
@@ -131,6 +182,17 @@ header a{
         font-size: 5vw;
         margin-left: 8%;
         color:  #AFAFAF;
+    }
+
+    .container-mobile-link-off a {
+        z-index: 3;
+        font-size: 5vw;
+        margin-left: 8%;
+        color:  #AFAFAF;
+    }
+
+    #logout{
+        color: rgb(218, 17, 17);
     }
     
     /* ------------- sliding menu ------------------ */

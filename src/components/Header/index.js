@@ -1,58 +1,27 @@
-import React, {useState} from "react";
-import './index.css';
+import jwt_decode from "jwt-decode";
 
-import logo from './../../static/img/LogoBFN_header.png';
-import { Link } from 'react-router-dom';
+import Header_desktop from './Header_desktop';
+import Header_mobile from './Header_mobile';
+
+import './index.css';
 
 function Header() {
 
-    // to change burger classes
-    const [burger_class, setBurgerClass] = useState("burger-bar unclicked")
-    const [menu_class, setMenuClass] = useState("menu hidden")
-    const [isMenuClicked, setIsMenuClicked] = useState(false)
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(accessToken)
 
-    // toggle burger menu change
-    const updateMenu = () => {
-        if(!isMenuClicked) {
-            setBurgerClass("burger-bar clicked")
-            setMenuClass("menu visible")
-        }
-        else {
-            setBurgerClass("burger-bar unclicked")
-            setMenuClass("menu hidden")
-        }
-        setIsMenuClicked(!isMenuClicked)
+    if (accessToken !== null) {
+        var decoded = jwt_decode(accessToken);
+        var role = decoded.roles[0].authority;
+        console.log(decoded)
     }
 
-    return(
-        <header>
-            
-            <div className='header-mobile'>
-                <nav>
-                    <div className="burger-menu" onClick={updateMenu}>
-                        <div className={burger_class} ></div>
-                        <div className={burger_class} ></div>
-                        <div className={burger_class} ></div>
-                    </div>
-                </nav>
 
-                <div className={menu_class}>
-                    <div className="container-mobile-link">
-                        <Link to={'/feed'}>Feed</Link>
-                        <Link to={'/sobre_nos'}>Nós</Link>
-                        <Link to={'/login'}>Login</Link>
-                    </div>
-                </div>
-            </div>
-
-            <img src={logo} />
-            <div className="link-header-desk">
-                <Link to={'/feed'}>Feed</Link>
-                <Link to={'/sobre_nos'}>Nós</Link>
-            </div>
-
-            <Link className='button-header' to={'/login'}>Login</Link>
-        </header>
+    return (
+        <>
+            <Header_desktop role={role}/>
+            <Header_mobile role={role}/>
+        </>
     );
 }
 

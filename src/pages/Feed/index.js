@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Catalog from "../../components/Catalog/Index";
 import Header from "../../components/Header";
@@ -11,14 +10,13 @@ import Api from "../../config/Service/Api";
 
 function Feed() {
 
-    const [categories, setCategories] = useState([]);
+
     const [donations, setDonations] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
     const [page, setPage] = useState(1);
-    const navigate = useNavigate();
 
     async function fetchMoreProducts() {
-        const response = await Api.get('/api/v1/donation', {
+        const response = await Api.get(`/api/v1/donation/feed/PR`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
