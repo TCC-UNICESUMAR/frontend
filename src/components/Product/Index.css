@@ -11,29 +11,27 @@
     margin-bottom: 5%;
 }
 
-.container-button-donation{
+.container-button-donation-edit{
     margin-top: 2%;
-    width: 30%;
-    margin-left: 60%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
     height: 3.5vh;
 }
 
 .button-donation-edit{
-    width: 8vh;
     border: none;
     cursor: pointer;
+    margin-right: 5%;
 }
 
 .button-donation-delete{
-    width: 8vh;
     border: none;
     cursor: pointer;
 }
 
 .icon-donation{
-    width: 100%;
+    width: 50%;
     height: 3.5vh;
     background-color: #F3F3F3;
 }
@@ -61,6 +59,7 @@
     margin-left: 7%;
     font-size: 1.6vw;
     margin-bottom: 2%;
+    text-align: left;
 }
 
 .donation-description{
@@ -84,13 +83,38 @@
     text-align: end;
 }
 
-.donation-second-content button{
+.container-button-donation-edit button{
     background-color: #F3F3F3;
     border-radius: 25px;
     border: solid 1px #59D678;
     color: #59D678;
     width: 20vh;
     height: 2vw;
+    cursor: pointer;
+}
+
+.container-button-feed{
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+    height: 5vh;
+}
+
+#btn-request{
+    width: 60%;
+    color: #59D678;
+    border-radius: 25px;
+    border: solid 1px #59D678;
+    background-color: #F3F3F3;
+    cursor: pointer;
+}
+
+#btn-msg{
+    width: 30%;
+    color: #59D678;
+    border-radius: 25px;
+    border: solid 1px #59D678;
+    background-color: #F3F3F3;
     cursor: pointer;
 }
 
@@ -125,6 +149,12 @@
         font-size: 2vh;
         width: 17vh;
         height: 8vw;
+    }
+
+    .container-button-feed{
+        display: flex;
+        width:55%;
+        height: 4vh;
     }
 
 }

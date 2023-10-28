@@ -1,12 +1,20 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
 
 import logo from './../../../static/img/LogoBFN_header.png';
 import { CiUser } from "react-icons/ci";
 import './../index.css';
-
+import './index.css';
 
 function Header_desktop({ role }) {
+    const dropDownRef = useRef(null);
+    const [isActive, setIsActive] = useState(false);
+    const onClick = () => setIsActive(!isActive);
+
+    function logout() {
+        <Navigate to="/login" />
+        localStorage.clear();
+    }
 
     return (
         <>
@@ -29,17 +37,20 @@ function Header_desktop({ role }) {
                             <Link to={'/criar_doacao'}>Doar</Link>
                         </div>
                         <div className='container-profile'>
-                            <div className='menu'>
-                                <button onClick={() => {}} className="menu-button">
-                                    <span>Perfil</span>
+                            <div className='menu-container'>
+                                <button onClick={onClick} className="menu-button">
+                                    <CiUser className="img-profile" />
                                 </button>
-                                <nav>
+                                <nav
+                                    ref={dropDownRef}
+                                    className={`menu ${isActive ? "active" : "inactive"}`}
+                                >
                                     <ul>
                                         <li>
                                             <Link to="/perfil">Perfil</Link>
                                         </li>
                                         <li>
-                                            <Link to="/*">Sair</Link>
+                                            <Link onClick={logout} to="/login">Sair</Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -55,11 +66,24 @@ function Header_desktop({ role }) {
                             <Link to={'/*'}>Chat</Link>
                         </div>
                         <div className='container-profile'>
-                            <CiUser className='icon-profile' />
-                            <ul className='dropdown'>
-                                <li>Perfil</li>
-                                <li>Sair</li>
-                            </ul>
+                            <div className='menu-container'>
+                                <button onClick={onClick} className="menu-button">
+                                    <CiUser className="img-profile" />
+                                </button>
+                                <nav
+                                    ref={dropDownRef}
+                                    className={`menu ${isActive ? "active" : "inactive"}`}
+                                >
+                                    <ul>
+                                        <li>
+                                            <Link to="/perfil">Perfil</Link>
+                                        </li>
+                                        <li>
+                                            <Link onClick={logout} to="/login">Sair</Link>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </>
                     : null}
@@ -71,11 +95,24 @@ function Header_desktop({ role }) {
                             <Link to={'/*'}>Relatórios</Link>
                         </div>
                         <div className='container-profile'>
-                            <CiUser className='icon-profile' />
-                            <ul className='dropdown'>
-                                <li>Perfil</li>
-                                <li>Sair</li>
-                            </ul>
+                            <div className='menu-container'>
+                                <button onClick={onClick} className="menu-button">
+                                    <CiUser className="img-profile" />
+                                </button>
+                                <nav
+                                    ref={dropDownRef}
+                                    className={`menu ${isActive ? "active" : "inactive"}`}
+                                >
+                                    <ul>
+                                        <li>
+                                            <Link to="/perfil">Perfil</Link>
+                                        </li>
+                                        <li>
+                                            <Link onClick={logout} to="/login">Sair</Link>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </>
                     : null}

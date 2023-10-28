@@ -1,0 +1,81 @@
+.container-modal{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.modal.inactive{
+    display: none;
+}
+
+.modal.active{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 30%;
+    opacity: 1;
+    visibility: visible;
+    background-color: #F3F3F3;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+    position: absolute;
+    z-index: 10;
+    margin-top: 15%;
+    transition: 0.3s;
+}
+
+.modal h3{
+    font-size: 2.5vh;
+    font-weight: 500;
+    margin-bottom: 8%;
+}
+
+.modal button{
+    width: auto;
+    border: solid 1px #59d678;
+    color: #59d678;
+    border-radius: 25px;
+    background-color: transparent;
+    padding: 1vh 4vh;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 2.2vh;
+}
+
+.modal button:hover{
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+.modal a{
+    text-decoration: none;
+    color: #59d678;
+    border: solid 1px #59d678;
+    padding: 1vh 4vh;
+    border-radius: 25px;
+    transition: 0.2s;
+    font-size: 2.2vh;
+}
+
+.modal a:hover{
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+/*Media*/
+
+@media (max-width: 414px) {
+
+    .modal.active{
+        width: 80%;
+        height: 30%;
+        margin-top: 80%;
+    }
+
+    .modal h3{
+        margin: auto;
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+}

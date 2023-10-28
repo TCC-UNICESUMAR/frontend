@@ -5,7 +5,7 @@ function Catalog(props) {
 
     var listDonations = [];
     for (let x = 0; x < props.donations.length; x++) {
-        listDonations.push(<Product donation={props.donations[x]} isEdit={props.isEdit}/>)
+        listDonations.push(<Product donation={props.donations[x]} page={props.page}/>)
     }
 
     return (

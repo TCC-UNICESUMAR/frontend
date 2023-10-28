@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import logo from './../../../static/img/LogoBFN_header.png';
 
@@ -25,6 +25,11 @@ function Header_mobile({ role }) {
         setIsMenuClicked(!isMenuClicked)
     }
 
+    function logout() {
+        localStorage.clear();
+        <Navigate to="/login" />
+    }
+
     return (
         <div className='header-mobile'>
             <nav>
@@ -36,40 +41,11 @@ function Header_mobile({ role }) {
             </nav>
 
             <div className={menu_class}>
-                {role === "" ?
-                    <div className="container-mobile-link-off">
-                        <Link to={'/feed'}>Feed</Link>
-                        <Link to={'/sobre_nos'}>Nós</Link>
-                        <Link to={'/login'}>Login</Link>
-                    </div>
-                    : null}
-                {role === "ROLE_USER" ?
-                    <div className="container-mobile-link">
-                        <Link to={'/feed'}>Feed</Link>
-                        <Link to={'/chat'}>Chat</Link>
-                        <Link to={'/criar_doacao'}>Doar</Link>
-                        <Link to={'/perfil'}>Perfil</Link>
-                        <Link id="logout" to={'/perfil'}>Sair</Link>
-                    </div>
-                    : null}
-                {role === "ROLE_ONG" ?
-                    <div className="container-mobile-link">
-                        <Link to={'/feed'}>Feed</Link>
-                            <Link to={'/*'}>Solicitações</Link>
-                            <Link to={'/*'}>Chat</Link>
-                        <Link to={'/perfil'}>Perfil</Link>
-                        <Link id="logout" to={'/perfil'}>Sair</Link>
-                    </div>
-                    : null}
-                {role === "ROLE_ADMIN" ?
-                    <div className="container-mobile-link">
-                        <Link to={'/feed'}>Feed</Link>
+            <Link to={'/feed'}>Feed</Link>
                         <Link to={'/*'}>Dashboard</Link>
                         <Link to={'/*'}>Relatórios</Link>
                         <Link to={'/perfil'}>Perfil</Link>
-                        <Link id="logout" to={'/perfil'}>Sair</Link>
-                    </div>
-                    : null}
+                        <Link onClick={logout} to="/login">Sair</Link>
             </div>
             <img src={logo} />
         </div>

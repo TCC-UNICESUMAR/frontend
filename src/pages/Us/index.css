@@ -34,26 +34,111 @@
     margin-top: 5.3%;
 }
 
+.division{
+    width: 50%;
+    height: 0.5vh;
+    background-color: #9FDDAF;
+    border-radius: 25px;
+    margin: auto;
+    margin-bottom: 3%;
+    margin-top: 5%;
+}
+
+/*About us*/
 .text-about-us{
     width: 40%;
     margin-top: 12%;
+    display: flex;
+    flex-direction: column;
 }
 
 .text-about-us h2{
     color: #3E5744;
     font-size: 2.2vw;
-    margin-left: 6%;
+    width: auto;
+    text-align: left;
 }
 
 .text-about-us p{
     color: #3E5744;
     font-size: 1.2vw;
-    margin-left: 6%;
 }
 
 .content-about-group img{
     margin-left: 20%;
     width: 30%;
+}
+
+/*Mission*/
+.text-us-mission{
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-us-mission{
+    display: flex;
+    flex-direction: column;
+    width: 72%;
+    padding: 2.5%;
+    margin: auto;
+}
+
+.content-us-mission h2{
+    color: #3E5744;
+    font-size: 2.2vw;
+    width: auto;
+    text-align: center;
+    margin-bottom: 2%;
+    margin-top: 0%;
+}
+
+.content-us-mission p{
+    color: #3E5744;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.container-data-mission{
+    display: flex;
+    margin-top: 2%;
+}
+
+.graphic{
+    width: 40vh;
+}
+
+/*Join*/
+.text-us-join{
+    display: flex;
+    margin-bottom: 4%;
+}
+
+.content-us-join{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+.content-us-join h2{
+    color: #3E5744;
+    font-size: 2.2vw;
+    width: auto;
+    text-align: center;
+    margin-bottom: 2%;
+    margin-top: 0%;
+}
+
+.content-us-join p{
+    color: #3E5744;
+    font-size: 1.2vw;
+}
+
+.content-us-join a{
+    color: #3E5744;
+    font-size: 1.2vw;
 }
 
 /*Media*/
@@ -74,8 +159,13 @@
         margin-top: 14%;
     }
 
+    .division{
+        margin-top: 15%;
+        margin-bottom: 0%;
+    }
+
     .content-about-group{
-        width: 95%;
+        width: 90%;
         margin: auto;
         display: flex;
         flex-direction: column;
@@ -105,4 +195,55 @@
         width: 70%;
     }
 
+    /*Mission*/
+    .content-us-mission{
+        width: 95%;
+        padding: 0;
+    }
+
+    .content-us-mission h2{
+        color: #3E5744;
+        font-size: 7vw;
+        margin-left: 3%;
+        margin-top: 20%;
+        margin-bottom: 3%;
+    }
+
+    .content-us-mission p{
+        font-size: 4.7vw;
+        padding: 0.5%;
+        margin: 0 3% 0 3%;
+        text-align: left;
+    }
+
+    .container-data-mission{
+        display: flex;
+        flex-direction: column;
+        margin-top: 2%;
+    }
+
+    /*Join*/
+    .content-us-join{
+        width: 95%;
+        padding: 0;
+    }
+
+    .content-us-join h2{
+        color: #3E5744;
+        font-size: 7vw;
+        margin-left: 3%;
+        margin-top: 20%;
+        margin-bottom: 3%;
+    }
+
+    .content-us-join p{
+        font-size: 4.7vw;
+        padding: 0.5%;
+        margin: 0 3% 0 3%;
+        text-align: left;
+    }
+
+    .content-us-join a{
+        font-size: 4.7vw;
+    }
 }
