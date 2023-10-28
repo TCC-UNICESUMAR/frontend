@@ -1,35 +1,38 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import Api from "../../config/Service/Api";
 
 import '../../default.css';
 
 import Header from '../../components/Header';
-import Api from "../../config/Service/Api";
-
+import Modal from "../../components/Modal";
 
 function User_register() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const navigate = useNavigate();
+    const [state, setState] = useState("undefined");
+
+    const watchPassword = watch('password');
 
     async function userRegister(data) {
-
-        console.log(data)
-
         try {
             await Api.post('api/v1/user/register', data);
-
-            navigate("/login", { replace: true });
+            setState("success");
         } catch (err) {
-            alert('Insira os dados corretamente e tente novamente!!!');
+            setState("error");
         }
-
     };
 
     return (
         <>
             <Header />
+            <Modal
+                message={"Usuário já cadastrado!"}
+                state={state}
+                redirect={"/login"}
+            />
             <form className="form-double" onSubmit={handleSubmit(userRegister)}>
                 <h2>Cadastro</h2>
                 <div className="container-main-double">
@@ -57,10 +60,29 @@ function User_register() {
                             className="field"
                             type="password"
                             placeholder="*Senha"
-                            {...register("password", { required: true })}
+                            {...register("password", { required: true, minLength: 7 })}
                         />
                         {errors?.password?.type == 'required' &&
                             <p className="error-message">O campo senha é obrigatório.</p>
+                        }
+                        {errors?.password?.type == 'minLength' &&
+                            <p className="error-message">A senha deve conter 7 dígitos.</p>
+                        }
+                        <input
+                            className="field"
+                            type="password"
+                            placeholder="*Confirmar senha"
+                            {...register("passwordConfirmation", {
+                                required: true,
+                                minLength: 7,
+                                validate: (value) => value == watchPassword,
+                            })}
+                        />
+                        {errors?.passwordConfirmation?.type == 'validate' &&
+                            <p className="error-message">As senhas inseridas não conferem.</p>
+                        }
+                        {errors?.passwordConfirmation?.type == 'required' &&
+                            <p className="error-message">O campo para confirmar a senha é obrigatório.</p>
                         }
                         <input
                             className="field"

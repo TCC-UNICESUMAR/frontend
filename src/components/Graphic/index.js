@@ -26,7 +26,7 @@ function Graphic( {name, data} ) {
     }]
 
     return (
-        <div className="conatiner-dash">
+        <div className="conatainer-dash">
             <h2 className="title-dash">{name}</h2>
             <Chart 
                 options={options}

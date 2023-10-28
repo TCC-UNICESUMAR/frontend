@@ -10,6 +10,7 @@ import Api from "../../config/Service/Api";
 function My_donate() {
 
     const [donations, setDonations] = useState([]);
+    const [donationActive, setDonationActive] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
 
     async function fetchMoreProducts() {
@@ -29,6 +30,8 @@ function My_donate() {
             });
 
             setDonations(response.data.data.content)
+            setDonationActive(response.data.data.content)
+            console.log(donationActive)
 
         } catch (error) {
             alert('Error Get Products By User! Try again!');
@@ -39,11 +42,20 @@ function My_donate() {
         fetchMoreProducts();
     }, [])
 
+    console.log(donations)
+
     return (
         <>
             <Header />
             <h2 className="title-page-mydonates">Minhas doações</h2>
-            <Catalog donations={donations} isEdit={true} />
+            <div>
+                <button onClick={''}>Doações ativas</button>
+                <button onClick={''}>Doações inativas</button>
+            </div>
+            <Catalog 
+                donations={donations}
+                page={"my_donate"}
+            />
         </>
     )
 }

@@ -10,7 +10,6 @@ import Api from "../../config/Service/Api";
 
 function Feed() {
 
-
     const [donations, setDonations] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
     const [page, setPage] = useState(1);
@@ -29,6 +28,16 @@ function Feed() {
         fetchMoreProducts();
     }, [])
 
+    console.log(donations)
+
+    if (donations == 0) {
+        return(
+            <>
+                <Header />
+                <h2 className="title-page-feed">Não há doações disponíveis</h2>
+            </>
+        )
+    }
 
     return(
         <>

@@ -7,6 +7,7 @@ import Api from "../../config/Service/Api";
 
 import '../../default.css';
 import './index.css';
+import profileDefault from './../../static/img/edit_profile.png';
 
 function Profile() {
 
@@ -31,14 +32,22 @@ function Profile() {
     useEffect(() => {
         getUser();
     }, [])
-
+    console.log(response)
     return (
         <>
             <Header />
             <div className="container-main-profile">
                 <div className="container-photo-user">
-                    <img></img>
-                    <h2>Username</h2>
+                    {response.profileImageId == ! null ?
+                        <div className='back-photo-user'>
+                            <img></img>
+                        </div>
+                        :
+                        <div className='back-photo-user'>
+                            <img src={profileDefault}/>
+                        </div>
+                    }
+                    <h2>{response.name}</h2>
                     <Link to="/minhas_doacoes">x doações ativas</Link>
                 </div>
                 <form className="form-double" onSubmit={handleSubmit()}>

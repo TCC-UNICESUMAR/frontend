@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import Api from '../../config/Service/Api'
+import Api from '../../config/Service/Api';
 
 import Header from "../../components/Header";
+import Modal from "../../components/Modal";
 
 import '../../default.css';
 
@@ -12,7 +13,9 @@ function Create_donate() {
 
     const accessToken = localStorage.getItem('accessToken');
 
-    const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
+
+    const [state, setState] = useState("undefined");
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     
@@ -24,16 +27,38 @@ function Create_donate() {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            navigate("/feed", { replace: true });
-
+            setState("success");
         } catch (err) {
-            alert('Prencha todos os campos corretamente!!!');
+            setState("error");
         }
     };
+
+    async function loadCategories() {
+        try {
+            const response = await Api.get(`/api/v1/category`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            setCategories(response.data.data);
+            console.log(categories)
+        } catch (error) {
+            alert('Error recovering category name! Try again!');
+        }
+    }
+
+    useEffect(() => {
+        loadCategories();
+    }, [])
 
     return (
         <>
             <Header />
+            <Modal 
+                message={"Você já cadastrou essa doação!"}
+                state={state}
+                redirect={"/feed"}
+            />
             <form className="form-double" onSubmit={handleSubmit(createDonate)}>
                 <h2>Dados da doação</h2>
                 <div className="container-main-double">
@@ -82,6 +107,7 @@ function Create_donate() {
                             type="file"
                             placeholder="*Foto"
                             multiple
+                            accept="image/png,image/jpg,image/jpeg"
                             {...register("photo", { required: false })}
                         />
                         {errors?.photo?.type == 'required' &&

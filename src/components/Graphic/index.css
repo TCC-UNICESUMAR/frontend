@@ -1,4 +1,4 @@
-.conatiner-dash{
+.conatainer-dash{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -12,4 +12,17 @@
     font-size: 1.4vw;
     margin-top: 2%;
     font-weight: 500;
+}
+
+@media (max-width: 414px) {
+    .conatainer-dash{
+        width: auto;
+        margin-top: 5%;
+    }
+    
+    .title-dash{
+        font-size: 4vw;
+        margin-top: 2%;
+        font-weight: 500;
+    }
 }

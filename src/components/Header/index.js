@@ -8,14 +8,11 @@ import './index.css';
 function Header() {
 
     const accessToken = localStorage.getItem('accessToken');
-    console.log(accessToken)
 
     if (accessToken !== null) {
         var decoded = jwt_decode(accessToken);
         var role = decoded.roles[0].authority;
-        console.log(decoded)
     }
-
 
     return (
         <>
