@@ -17,14 +17,14 @@ function Edit_donate() {
 
     const [response, setResponse] = useState('');
 
-    async function getProductById() {
+    async function getDonationById() {
         try {
-            const data = await Api.get(`api/v1/donation/${donationId}`, {
+            const resp = await Api.get(`api/v1/donation/${donationId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            setResponse(data.data.data);
+            setResponse(resp.data.body);
             console.log("Response donate: ",response)
         } catch (error) {
             alert('Error recovering category name! Try again!');
@@ -32,7 +32,7 @@ function Edit_donate() {
     }
 
     useEffect(() => {
-        getProductById();
+        getDonationById();
     }, [])
 
 

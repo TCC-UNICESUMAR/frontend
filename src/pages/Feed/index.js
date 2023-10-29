@@ -15,12 +15,8 @@ function Feed() {
     const [page, setPage] = useState(1);
 
     async function fetchMoreProducts() {
-        const response = await Api.get(`/api/v1/donation/feed/PR`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
-        setDonations([...donations, ...response.data.data.content])
+        const response = await Api.get(`/api/v1/donation/region/PR`);
+        setDonations([...donations, ...response.data.body.content])
         setPage(page + 1);
     }
 

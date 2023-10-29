@@ -18,7 +18,7 @@ function Product(props) {
 
     const [state, setState] = useState("undefined");
 
-    async function editProduct(id) {
+    async function editDonation(id) {
         try {
             navigate(`/minha_doacao/${id}`, { replace: true });
         } catch (error) {
@@ -26,7 +26,7 @@ function Product(props) {
         }
     }
 
-    async function deleteProduct(id) {
+    async function deleteDonation(id) {
         console.log(id)
         try {
             await Api.delete(`/api/v1/donation/${id}`, {
@@ -48,9 +48,13 @@ function Product(props) {
                 redirect={"/perfil"}
             />
             {
-                <div className='donation-container-img'>
-                    <img src={pic_about_us} />
-                </div>
+                props.donation.product.images.map( image =>
+                    <div className='donation-container-img' key={image.id}>
+                        <img src={image.url} />
+                    </div>  
+                
+                )
+               
             }
             <div>
                 <h2 className='donation-title'>{props.donation.product.name}</h2>
@@ -63,14 +67,14 @@ function Product(props) {
                                 className="button-donation-edit"
                                 type={"button"}
                                 value={"Editar"}
-                                onClick={() => editProduct(props.donation.product.productId)}
+                                onClick={() => editDonation(props.donation.id)}
                             ><CiEdit className='icon-donation' /></button>
 
                             <button
                                 className="button-donation-delete"
                                 type={"button"}
                                 value={"Excluir"}
-                                onClick={() => deleteProduct(props.donation.product.productId)}
+                                onClick={() => deleteDonation(props.donation.id)}
                             ><CiTrash className='icon-donation' /></button>
                         </div>
                         :
