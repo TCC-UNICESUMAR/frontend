@@ -96,7 +96,7 @@ function RoutesApp() {
                 />
 
                 <Route
-                    exact path='/minha_doacao/:productId'
+                    exact path='/minha_doacao/:donationId'
                     element={
                         <PrivateRoute >
                             <Edit_donate />

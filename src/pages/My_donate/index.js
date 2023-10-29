@@ -21,7 +21,7 @@ function My_donate() {
                 }
             });
 
-            const id = responseUser.data.data.id;
+            const id = responseUser.data.body.id;
 
             const response = await Api.get(`/api/v1/donation/byUser/${id}`, {
                 headers: {
@@ -29,8 +29,8 @@ function My_donate() {
                 }
             });
 
-            setDonations(response.data.data.content)
-            setDonationActive(response.data.data.content)
+            setDonations(response.data.body.content)
+            setDonationActive(response.data.body.content)
             console.log(donationActive)
 
         } catch (error) {

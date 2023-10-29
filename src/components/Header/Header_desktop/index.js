@@ -5,15 +5,29 @@ import logo from './../../../static/img/LogoBFN_header.png';
 import { CiUser } from "react-icons/ci";
 import './../index.css';
 import './index.css';
+import Api from '../../../config/Service/Api';
 
 function Header_desktop({ role }) {
     const dropDownRef = useRef(null);
     const [isActive, setIsActive] = useState(false);
     const onClick = () => setIsActive(!isActive);
 
-    function logout() {
-        <Navigate to="/login" />
-        localStorage.clear();
+    async function logout() {
+
+        const accessToken = localStorage.getItem('accessToken');
+        try {
+            await Api.get('/api/v1/auth/logout', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            localStorage.clear();
+            <Navigate to="/login" />
+
+        } catch (error) {
+            alert('Error Logout! Try again!');
+        }
+       
     }
 
     return (

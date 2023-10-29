@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import Modal from "../../components/Modal";
 
 import '../../default.css';
+import axios from "axios";
 
 
 function Create_donate() {
@@ -17,14 +18,24 @@ function Create_donate() {
 
     const [state, setState] = useState("undefined");
 
+    const [streetName, setStreetName] = useState('');
+    const [city, setCity] = useState('');
+    const [streetNumber, setStreetNumber] = useState('');
+    const [uf, setUf] = useState('');
+    const [zipCode, setZipCode] = useState('');
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     async function createDonate(data) {
+        let formData = new FormData();
+        formData.append("body",JSON.stringify(data));
+        formData.append("files", data.photo[0])
         console.log(data)
         try {
-            await Api.post("/api/v1/donation", data, {
+            await Api.post("/api/v1/donation", formData, {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`
+                    Authorization: `Bearer ${accessToken}`,
+                    'content-type': 'multipart/form-data'
                 }
             })
             setState("success");
@@ -40,11 +51,21 @@ function Create_donate() {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            setCategories(response.data.data);
+            setCategories(response.data.body);
             console.log(categories)
         } catch (error) {
             alert('Error recovering category name! Try again!');
         }
+    }
+
+    const checkCEP = (e) => {
+        const cep = e.target.value.replace(/\D/g, '');
+        console.log(cep);
+        axios.get(`https://viacep.com.br/ws/${cep}/json/`).then(resp => {
+            setUf(resp.data.uf)
+            setStreetName(resp.data.logradouro)
+            setCity(resp.data.localidade)
+        });
     }
 
     useEffect(() => {
@@ -84,12 +105,11 @@ function Create_donate() {
                         {errors?.description?.type == 'max' &&
                             <p className="error-message">Número máximo de caracteres é 50.</p>
                         }
-                        <input
-                            className="field"
-                            type="text"
-                            placeholder="*Categoria"
-                            {...register("category", { required: true })}
-                        />
+                        <select className='field' name="idCategory" id="idCategory" placeholder="Categoria"
+                            {...register("category", { required: true })}>
+                            <option className='option-form' value="0" placeholder="Categoria">Selecione uma categoria</option>
+                            {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
+                        </select>
                         {errors?.category?.type == 'required' &&
                             <p className="error-message">O campo categoria é obrigatório.</p>
                         }
@@ -119,7 +139,8 @@ function Create_donate() {
                             className="field"
                             type="text"
                             placeholder="*CEP"
-                            {...register("address.zipCode", { required: true })}
+                            onBlur={checkCEP}
+                            onChange={e => setZipCode(e.target.value)}
                         />
                         {errors?.zipCode?.type == 'required' &&
                             <p className="error-message">O campo CEP é obrigatório.</p>
@@ -128,6 +149,7 @@ function Create_donate() {
                             className="field"
                             type="text"
                             placeholder="*Endereço"
+                            defaultValue={streetName}
                             {...register("address.streetName", { required: true })}
                         />
                         {errors?.streetName?.type == 'required' &&
@@ -137,6 +159,7 @@ function Create_donate() {
                             className="field"
                             type="text"
                             placeholder="*Cidade"
+                            defaultValue={city}
                             {...register("address.city", { required: true })}
                         />
                         {errors?.city?.type == 'required' &&
@@ -146,6 +169,7 @@ function Create_donate() {
                             className="field"
                             type="text"
                             placeholder="*UF"
+                            defaultValue={uf}
                             {...register("address.uf", { required: true })}
                         />
                         {errors?.uf?.type == 'required' &&

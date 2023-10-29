@@ -16,12 +16,12 @@ function Profile() {
 
     async function getUser() {
         try {
-            const data = await Api.get('/api/v1/user/getUserBySession', {
+            let response = await Api.get('/api/v1/user/getUserBySession', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            setResponse(data.data.data);
+            setResponse(response.data.body);
         } catch (error) {
             alert('Error Get User By Session! Try again!');
         }

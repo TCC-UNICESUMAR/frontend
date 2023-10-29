@@ -19,8 +19,8 @@ function Login() {
         try {
             const response = await Api.post('api/v1/auth/authenticate', data);
 
-            localStorage.setItem('accessToken', response.data.data.accessToken)
-            localStorage.setItem('refreshToken', response.data.data.refreshToken)
+            localStorage.setItem('accessToken', response.data.body.accessToken)
+            localStorage.setItem('refreshToken', response.data.body.refreshToken)
 
             navigate("/feed", { replace: true });
         } catch (err) {
