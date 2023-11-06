@@ -9,8 +9,9 @@ import Modal from "../../components/Modal";
 import '../../default.css';
 import axios from "axios";
 
-
 function Create_donate() {
+
+    const [files, setFiles] = useState([]);
 
     const accessToken = localStorage.getItem('accessToken');
 
@@ -20,18 +21,20 @@ function Create_donate() {
 
     const [streetName, setStreetName] = useState('');
     const [city, setCity] = useState('');
-    const [streetNumber, setStreetNumber] = useState('');
     const [uf, setUf] = useState('');
     const [zipCode, setZipCode] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    async function createDonate(data) {
-        let formData = new FormData();
-        formData.append("body",JSON.stringify(data));
 
-        formData.append("files", data.photo[0])
-        console.log("data", data.photo)
+    async function createDonate(data) {
+
+        let formData = new FormData();
+        formData.append("body", JSON.stringify(data));
+
+        for(let i = 0; i <= files.length; i++){
+            formData.append("files", files[i])
+        }
+        
         try {
             await Api.post("/api/v1/donation", formData, {
                 headers: {
@@ -75,7 +78,7 @@ function Create_donate() {
     return (
         <>
             <Header />
-            <Modal 
+            <Modal
                 message={"Você já cadastrou essa doação!"}
                 state={state}
                 redirect={"/"}
@@ -129,7 +132,7 @@ function Create_donate() {
                                 placeholder="*Foto"
                                 multiple
                                 accept="image/png,image/jpg,image/jpeg"
-                                {...register("photo", { required: false })}
+                                onChange={e => setFiles(e.target.files)}
                             />
                             {errors?.photo?.type == 'required' &&
                                 <p className="error-message">O campo foto é obrigatório.</p>
