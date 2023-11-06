@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: 'Inter', sans-serif;
 }
 
 /* Default form */
-form{
+form {
     border-radius: 25px;
     background-color: #F3F3F3;
     width: 32%;
@@ -21,7 +21,7 @@ form{
     margin-bottom: 5%;
 }
 
-form h2{
+form h2 {
     margin: auto;
     margin-bottom: 7%;
     margin-top: 7%;
@@ -29,7 +29,7 @@ form h2{
     font-weight: 600;
 }
 
-.field{
+.field {
     width: 72%;
     max-width: 72%;
     height: 1.5vw;
@@ -45,12 +45,47 @@ form h2{
     margin-bottom: 5%;
 }
 
-.field::placeholder{
+.field::placeholder {
     color: #AFAFAF;
     font-size: 1vw;
 }
 
-.btn-submit{
+.container-input-img{
+    width: 72%;
+    max-width: 72%;
+    background-color: #5c1414;
+    display: flex;
+    margin: auto;
+    height: 1.5vw;
+    padding: 4%;
+    border-radius: 25px;
+    background-color: white;
+    border: none;
+    outline-color: #9FDDAF;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    content: '*Selecionar fotos';
+    display: inline-block;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1vw;
+    color: #AFAFAF;
+    width: 30%;
+}
+
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.btn-submit {
     width: 30vh;
     height: 7vh;
     align-items: center;
@@ -65,7 +100,7 @@ form h2{
     background-color: #59d678;
 }
 
-.error-message{
+.error-message {
     color: #9c0909;
     font-size: 1vw;
     text-align: left;
@@ -74,8 +109,37 @@ form h2{
     margin-top: -2%;
 }
 
+.p-ong-selection{
+    width: 90%;
+    margin: auto;
+    font-size: 1vw;
+    text-align: left;
+    margin-bottom: 5%;
+}
+
+.container-radio{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 1%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+input[type=radio] {
+    position: relative;
+    cursor: pointer;
+    border: #59d678 solid 1px;
+}
+
+.container-radio label{
+    margin-left: 3%;
+    font-size: 1vw;
+}
+
 /* Double form */
-.form-double{
+.form-double {
     border-radius: 25px;
     background-color: #F3F3F3;
     width: 50%;
@@ -90,7 +154,7 @@ form h2{
     height: auto;
 }
 
-.title-data-double{
+.title-data-double {
     margin: auto;
     font-size: 1.2vw;
     font-weight: 600;
@@ -98,21 +162,21 @@ form h2{
     margin-top: 0;
 }
 
-.container-main-double{
+.container-main-double {
     display: flex;
     margin-top: 0;
     justify-content: flex-start;
     height: auto;
 }
 
-.container-data-double{
+.container-data-double {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: 0;
 }
 
-.field-description{
+.field-description {
     width: 72%;
     max-width: 72%;
     height: 6vw;
@@ -128,15 +192,49 @@ form h2{
     margin-bottom: 5%;
 }
 
-.field-description ::placeholder{
+.field-description ::placeholder {
     color: #AFAFAF;
+}
+
+.field-select {
+    width: 80%;
+    max-width: 80%;
+    height: 13%;
+    padding: 2% 2%;
+    border-radius: 25px;
+    background-color: white;
+    border: none;
+    outline-color: #9FDDAF;
+    color: #AFAFAF;
+    font-weight: 500;
+    font-size: 1vw;
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+option {
+    color: #6F6F6F;
+    border: none;
+}
+
+option:hover {
+    background-color: #6F6F6F;
+}
+
+.container-address{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-address{
+    width: 50%;
 }
 
 /*Media*/
 
 @media (max-width: 414px) {
 
-    form{
+    form {
         border-radius: 25px;
         background-color: #F3F3F3;
         width: 85%;
@@ -150,7 +248,7 @@ form h2{
         margin-top: 15%;
     }
 
-    form h2{
+    form h2 {
         margin: auto;
         margin-bottom: 10%;
         margin-top: 10%;
@@ -158,11 +256,11 @@ form h2{
         font-weight: 600;
     }
 
-    .title-data-double{
+    .title-data-double {
         font-size: 5vw;
     }
 
-    .form-double{
+    .form-double {
         border-radius: 25px;
         background-color: #F3F3F3;
         width: 85%;
@@ -177,41 +275,41 @@ form h2{
         margin-bottom: 10%;
     }
 
-    .container-main-double{
+    .container-main-double {
         display: block;
         margin-top: 0;
         justify-content: flex-start;
     }
 
-    .field-description{
+    .field-description {
         margin-bottom: 7%;
         height: 10vw;
     }
 
-    .field-description{
+    .field-description {
         font-size: 4vw;
     }
 
-    .field{
+    .field {
         height: 3vw;
         margin-bottom: 7%;
     }
 
-    .field{
+    .field {
         font-size: 4vw;
     }
 
-    .field::placeholder{
+    .field::placeholder {
         font-size: 4vw;
     }
 
-    .error-message{
+    .error-message {
         font-size: 3vw;
         margin-bottom: 6%;
         margin-top: -4%;
     }
 
-    .btn-submit{
+    .btn-submit {
         width: 20vh;
         height: 5vh;
         font-size: 4vw;

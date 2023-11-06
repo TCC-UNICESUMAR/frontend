@@ -9,7 +9,7 @@ function Modal({ state, message, redirect }) {
     }
 
     return (
-        <div className="container-modal">
+        <div className={`container-modal ${state === "undefined" ? "inactive" : "active"}`}>
             <div className={`modal ${state === "undefined" ? "inactive" : "active"}`}>
                 {state === "success" ?
                     <div className="modal-success">

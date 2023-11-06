@@ -20,9 +20,9 @@ function Header_desktop({ role }) {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-            })
+            });
             localStorage.clear();
-            <Navigate to="/login" />
+            <Navigate to="/" />
 
         } catch (error) {
             alert('Error Logout! Try again!');
@@ -37,10 +37,9 @@ function Header_desktop({ role }) {
                 {role === undefined ?
                     <>
                         <div className="link-header-desktop">
-                            <Link to={'/feed'}>Feed</Link>
-                            <Link to={'/sobre_nos'}>Nós</Link>
+                            <Link to={'/sobre_nos'}>Sobre nós</Link>
                         </div>
-                        <Link className='button-header-login' to={'/login'}>Login</Link>
+                        <Link className='button-header-login' to={'/'}>Login</Link>
                     </>
                     : null}
                 {role === "ROLE_USER" ?
@@ -49,6 +48,7 @@ function Header_desktop({ role }) {
                             <Link to={'/feed'}>Feed</Link>
                             <Link to={'/chat'}>Chat</Link>
                             <Link to={'/criar_doacao'}>Doar</Link>
+                            <Link to={'/solitacoes_doacao'}>Solicitações</Link>
                         </div>
                         <div className='container-profile'>
                             <div className='menu-container'>
@@ -64,7 +64,7 @@ function Header_desktop({ role }) {
                                             <Link to="/perfil">Perfil</Link>
                                         </li>
                                         <li>
-                                            <Link onClick={logout} to="/login">Sair</Link>
+                                            <Link onClick={logout} to="/">Sair</Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -76,8 +76,8 @@ function Header_desktop({ role }) {
                     <>
                         <div className="link-header-desktop">
                             <Link to={'/feed'}>Feed</Link>
-                            <Link to={'/*'}>Solicitações</Link>
                             <Link to={'/*'}>Chat</Link>
+                            <Link to={'/*'}>Solicitações</Link>
                         </div>
                         <div className='container-profile'>
                             <div className='menu-container'>
@@ -93,7 +93,7 @@ function Header_desktop({ role }) {
                                             <Link to="/perfil">Perfil</Link>
                                         </li>
                                         <li>
-                                            <Link onClick={logout} to="/login">Sair</Link>
+                                            <Link onClick={logout} to="/">Sair</Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -122,7 +122,7 @@ function Header_desktop({ role }) {
                                             <Link to="/perfil">Perfil</Link>
                                         </li>
                                         <li>
-                                            <Link onClick={logout} to="/login">Sair</Link>
+                                            <Link onClick={logout} to="/">Sair</Link>
                                         </li>
                                     </ul>
                                 </nav>

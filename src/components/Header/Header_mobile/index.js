@@ -6,7 +6,7 @@ import logo from './../../../static/img/LogoBFN_header.png';
 import './../index.css';
 
 function Header_mobile({ role }) {
-    
+
     // to change burger classes
     const [burger_class, setBurgerClass] = useState("burger-bar unclicked")
     const [menu_class, setMenuClass] = useState("menu hidden")
@@ -27,7 +27,7 @@ function Header_mobile({ role }) {
 
     function logout() {
         localStorage.clear();
-        <Navigate to="/login" />
+        <Navigate to="/" />
     }
 
     return (
@@ -41,11 +41,11 @@ function Header_mobile({ role }) {
             </nav>
 
             <div className={menu_class}>
-            <Link to={'/feed'}>Feed</Link>
-                        <Link to={'/*'}>Dashboard</Link>
-                        <Link to={'/*'}>Relatórios</Link>
-                        <Link to={'/perfil'}>Perfil</Link>
-                        <Link onClick={logout} to="/login">Sair</Link>
+                <Link to={'/feed'}>Feed</Link>
+                <Link to={'/*'}>Dashboard</Link>
+                <Link to={'/*'}>Relatórios</Link>
+                <Link to={'/perfil'}>Perfil</Link>
+                <Link onClick={logout} to="/">Sair</Link>
             </div>
             <img src={logo} />
         </div>

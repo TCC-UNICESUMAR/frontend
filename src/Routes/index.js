@@ -14,6 +14,9 @@ import Password_recover from '../pages/Password_recover';
 import Profile from '../pages/Profile';
 import Us from '../pages/Us';
 import User_register from '../pages/User_register';
+import ReasonDonation from '../pages/Reason_donation';
+import RequestDonation from '../pages/Request_donation';
+import Ong_selection from '../pages/Ong_selection';
 
 function RoutesApp() {
 
@@ -24,7 +27,7 @@ function RoutesApp() {
                 <Route path='/*' element={<Not_found />} />
 
                 <Route
-                    exact path='/login'
+                    exact path='/'
                     element={
                         <PublicRoute >
                             <Login />
@@ -109,6 +112,33 @@ function RoutesApp() {
                     element={
                         <PrivateRoute >
                             <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    exact path='/motivo/:donationId'
+                    element={
+                        <PrivateRoute >
+                            <ReasonDonation />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    exact path='/solitacoes_doacao'
+                    element={
+                        <PrivateRoute >
+                            <RequestDonation />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    exact path='/selecao_ong/:donationOrder/:status'
+                    element={
+                        <PrivateRoute >
+                            <Ong_selection />
                         </PrivateRoute>
                     }
                 />

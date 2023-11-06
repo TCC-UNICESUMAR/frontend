@@ -31,7 +31,7 @@ function User_register() {
             <Modal
                 message={"Usuário já cadastrado!"}
                 state={state}
-                redirect={"/login"}
+                redirect={"/"}
             />
             <form className="form-double" onSubmit={handleSubmit(userRegister)}>
                 <h2>Cadastro</h2>

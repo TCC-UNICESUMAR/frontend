@@ -1,10 +1,66 @@
-.title-page-feed{
+.container-feed{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-filter-feed{
+    background-color: #F3F3F3;
+    max-width: 28%;
+    width: 28%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-filter-feed h3{
+    font-size: 1.2vw;
+    width: 80%;
     margin: auto;
-    margin-top: 4%;
+    margin-bottom: 2%;
+    margin-top: 15%;
+    text-decoration: underline;
+    color: #3E5744;
+    font-weight: 500;
+}
+
+.filter-select{
+    width: 80%;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    border: none;
+    background-color: #F3F3F3;
+    outline: none;
+}
+
+.filter-select::-ms-expand{
+    border: none;
+}
+
+.container-list-donation{
+    display: flex;
+    max-width: 70%;
+    width: 70%;
+    flex-direction: column;
+    padding: 2% 8%;
+    justify-content: space-around;
+}
+
+.title-page-feed{
     margin-bottom: 3%;
     font-size: 2vw;
     font-weight: 600;
-    width: auto;
+    margin-top: 0;
+}
+
+.container-list-donation-off{
+    max-width: 70%;
+    width: 70%;
+}
+
+.title-page-feed-off{
+    font-size: 2vw;
+    font-weight: 600;
 }
 
 /*Media*/

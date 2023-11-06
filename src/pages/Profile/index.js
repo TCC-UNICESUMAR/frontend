@@ -32,6 +32,7 @@ function Profile() {
     useEffect(() => {
         getUser();
     }, [])
+
     console.log(response)
     return (
         <>
@@ -44,7 +45,7 @@ function Profile() {
                         </div>
                         :
                         <div className='back-photo-user'>
-                            <img src={profileDefault}/>
+                            <img src={profileDefault} />
                         </div>
                     }
                     <h2>{response.name}</h2>
@@ -57,38 +58,31 @@ function Profile() {
                             <h3 className="title-data-double">Dados pessoais</h3>
                             <input
                                 className="field"
-                                value={response.name}
+                                defaultValue={response.name}
                                 type="text"
                                 placeholder="*Nome"
                                 {...register("name", { required: true })}
                             />
                             <input
                                 className="field"
-                                value={response.cnpjOrCpf}
+                                defaultValue={response.cnpjOrCpf}
                                 type="text"
                                 placeholder="*CPF/CNPJ"
                                 {...register("cnpjOrCpf", { required: true })}
                             />
                             <input
                                 className="field"
-                                value={response.phone}
+                                defaultValue={response.phone}
                                 type="text"
                                 placeholder="*Telefone"
                                 {...register("phone", { required: true })}
-                            />
-                            <input
-                                className="field"
-                                value={response.cep}
-                                type="text"
-                                placeholder="*CEP"
-                                {...register("cep", { required: true })}
                             />
                         </div>
                         <div className="container-data-double">
                             <h3 className="title-data-double">Dados do sistema</h3>
                             <input
                                 className="field"
-                                value={response.email}
+                                defaultValue={response.email}
                                 type="text"
                                 placeholder="*E-mail"
                                 {...register("email", { required: true })}
@@ -111,6 +105,59 @@ function Profile() {
                                 placeholder="*Confirmar senha"
                                 {...register("password_confirm", { required: true })}
                             />
+                        </div>
+                    </div>
+                    <h3 className="title-data-double">Dados de endereço</h3>
+                    <div className='container-address'>
+                        <div className='content-address'>
+                            <input
+                                className="field"
+                                defaultValue={response.cep}
+                                type="text"
+                                placeholder="*CEP"
+                                {...register("cep", { required: true })}
+                            />
+                            <input
+                                className="field"
+                                type="text"
+                                placeholder="*Endereço"
+                                defaultValue={response.streetName}
+                                {...register("address.streetName", { required: true })}
+                            />
+                            {errors?.streetName?.type == 'required' &&
+                                <p className="error-message">O campo endereço é obrigatório.</p>
+                            }
+                            <input
+                                className="field"
+                                type="text"
+                                placeholder="*Cidade"
+                                defaultValue={response.city}
+                                {...register("address.city", { required: true })}
+                            />
+                        </div>
+                        <div className='content-address'>
+                            {errors?.city?.type == 'required' &&
+                                <p className="error-message">O campo cidade é obrigatório.</p>
+                            }
+                            <input
+                                className="field"
+                                type="text"
+                                placeholder="*UF"
+                                defaultValue={response.uf}
+                                {...register("address.uf", { required: true })}
+                            />
+                            {errors?.uf?.type == 'required' &&
+                                <p className="error-message">O campo UF é obrigatório.</p>
+                            }
+                            <input
+                                className="field"
+                                type="text"
+                                placeholder="*Complemento"
+                                {...register("address.complement", { required: true })}
+                            />
+                            {errors?.complement?.type == 'required' &&
+                                <p className="error-message">O campo complemento é obrigatório.</p>
+                            }
                         </div>
                     </div>
                     <input

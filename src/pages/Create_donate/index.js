@@ -29,8 +29,9 @@ function Create_donate() {
     async function createDonate(data) {
         let formData = new FormData();
         formData.append("body",JSON.stringify(data));
+
         formData.append("files", data.photo[0])
-        console.log(data)
+        console.log("data", data.photo)
         try {
             await Api.post("/api/v1/donation", formData, {
                 headers: {
@@ -52,7 +53,6 @@ function Create_donate() {
                 }
             })
             setCategories(response.data.body);
-            console.log(categories)
         } catch (error) {
             alert('Error recovering category name! Try again!');
         }
@@ -78,7 +78,7 @@ function Create_donate() {
             <Modal 
                 message={"Você já cadastrou essa doação!"}
                 state={state}
-                redirect={"/feed"}
+                redirect={"/"}
             />
             <form className="form-double" onSubmit={handleSubmit(createDonate)}>
                 <h2>Dados da doação</h2>
@@ -105,9 +105,9 @@ function Create_donate() {
                         {errors?.description?.type == 'max' &&
                             <p className="error-message">Número máximo de caracteres é 50.</p>
                         }
-                        <select className='field' name="idCategory" id="idCategory" placeholder="Categoria"
+                        <select className='field-select'
                             {...register("category", { required: true })}>
-                            <option className='option-form' value="0" placeholder="Categoria">Selecione uma categoria</option>
+                            <option value="0">*Selecione uma categoria</option>
                             {categories.map(category => (<option key={category.categoryId}> {category.categoryName} </option>))}
                         </select>
                         {errors?.category?.type == 'required' &&
@@ -122,17 +122,19 @@ function Create_donate() {
                         {errors?.quantity?.type == 'required' &&
                             <p className="error-message">O campo quantidade é obrigatório.</p>
                         }
-                        <input
-                            className="field"
-                            type="file"
-                            placeholder="*Foto"
-                            multiple
-                            accept="image/png,image/jpg,image/jpeg"
-                            {...register("photo", { required: false })}
-                        />
-                        {errors?.photo?.type == 'required' &&
-                            <p className="error-message">O campo foto é obrigatório.</p>
-                        }
+                        <div className="container-input-img">
+                            <input
+                                className="custom-file-input"
+                                type="file"
+                                placeholder="*Foto"
+                                multiple
+                                accept="image/png,image/jpg,image/jpeg"
+                                {...register("photo", { required: false })}
+                            />
+                            {errors?.photo?.type == 'required' &&
+                                <p className="error-message">O campo foto é obrigatório.</p>
+                            }
+                        </div>
                     </div>
                     <div className="container-data-double">
                         <input
