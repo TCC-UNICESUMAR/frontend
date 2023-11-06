@@ -5,10 +5,16 @@ import './index.css'
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { Link, Navigate } from 'react-router-dom';
+import { useState } from "react";
+import Api from "../../config/Service/Api";
+import Modal from "../Modal";
 
 function Table(props) {
 
     const data = props.donations;
+    const [state, setState] = useState("undefined");
+    const accessToken = localStorage.getItem('accessToken');
+
 
     const formatDate = (date) => {
         return format(parseISO(date), "dd 'de' MMMM 'de' yyyy", {
@@ -16,8 +22,32 @@ function Table(props) {
         })
     }
 
+    async function notApproveDonation(id) {
+        console.log(id)
+        const request = {
+            approved: false,
+            idintermdiary: null,
+            donationOrderId: id
+        }
+        try {
+            await Api.post(`/api/v1/donation/sendDonorApproveDonation`, request, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            setState("success");
+        } catch (err) {
+            setState("error");
+        }
+    }
+
     return (
         <table border="1">
+            <Modal
+                message={"Erro ao solicitar aprovação!"}
+                state={state}
+                redirect={"/"}
+            />
             <thead>
                 <tr>
                     <th>Doação</th>
@@ -50,9 +80,8 @@ function Table(props) {
                                             }
 
                                         </button>
-                                        <button value={false}>
-                                            <CiCircleRemove className='icon-button-table remove'
-                                            />
+                                        <button >
+                                            <CiCircleRemove className='icon-button-table remove' onClick={() => notApproveDonation(donationOrder.id)}/>
                                         </button>
                                     </>
                                     :

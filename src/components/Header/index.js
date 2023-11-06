@@ -8,7 +8,6 @@ import './index.css';
 function Header() {
 
     const accessToken = localStorage.getItem('accessToken');
-
     if (accessToken !== null) {
         var decoded = jwt_decode(accessToken);
         var role = decoded.roles[0].authority;
@@ -17,7 +16,6 @@ function Header() {
     return (
         <>
             <Header_desktop role={role}/>
-            <Header_mobile role={role}/>
         </>
     );
 }

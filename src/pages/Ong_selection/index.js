@@ -13,21 +13,28 @@ function Ong_selection() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const accessToken = localStorage.getItem('accessToken');
-
+    const [cityDonation, setCityDonation] = useState('');
     const [ongs, setOngs] = useState([]);
     const [state, setState] = useState("undefined");
     const { donationOrder } = useParams();
 
-    async function findAllOngs() {
+    async function getOngsByDonationCity() {
         try {
-            const response = await Api.get(`/api/v1/user/findAllOngs/Curitiba`, {
+            const response = await Api.get(`/api/v1/donation/findDonationOrderById/${donationOrder}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
-            setOngs(response.data.body.content);
+                    
+            const responseOngs = await Api.get(`/api/v1/user/findAllOngs/${response.data.body.donation.address.city.cityName}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+        
+            setOngs(responseOngs.data.body.content);
         } catch (error) {
-            alert('Error Get Products By User! Try again!');
+            console.log('Error Get Donation Orer By Id');
         }
     }
 
@@ -47,7 +54,7 @@ function Ong_selection() {
     };
 
     useEffect(() => {
-        findAllOngs();
+        getOngsByDonationCity();
     }, [])
 
     return (
