@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import Graphic from "../../components/Graphic";
 
 import Header from "../../components/Header";
+import Api from "../../config/Service/Api";
 
 import './index.css';
 

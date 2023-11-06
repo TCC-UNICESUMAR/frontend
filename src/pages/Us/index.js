@@ -5,11 +5,87 @@ import Graphic from "../../components/Graphic";
 import pic_about_us from './../../static/img/pic_about_us.png';
 import './index.css';
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Api from "../../config/Service/Api";
 
 function Us() {
 
-    const dataUser = [30, 40, 45, 50, 49, 60, 70, 91, 30, 65, 12, 78];
-    const dataDonate = [80, 200, 95, 60, 55, 87, 32, 63, 44, 78, 64, 90];
+    let  donates = [];
+    let  donatesOrder = [];
+    let  users = [];
+    let  donatesOrderCanceled = [];
+
+
+    async function getAllDonationsByYear() {
+        try {
+            const response = await Api.get(`/api/v1/donation/findAllDonations?year`);
+
+            for(var i = 0; i <= 11; i++){
+                donates.push(response.data.body[i].quantity)
+            }
+
+            console.log(donates)
+
+
+        } catch (error) {
+            console.log('Error Get Donates to Dash By User! Try again!');
+        }
+    }
+
+    async function getAllDonationsOrderByYearAndStatusSuccess() {
+        try {
+            const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=SUCCESS&year=2023`);
+
+            for(var i = 0; i <= 11; i++){
+                donatesOrder.push(response.data.body[i].quantity)
+            }
+
+            console.log(donatesOrder)
+
+
+        } catch (error) {
+            console.log('Error Get Donates Order to Dash By User! Try again!');
+        }
+    }
+
+    async function getAllDonationsOrderByYearAndStatusCanceled() {
+        try {
+            const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=CANCELED&year=2023`);
+
+            for(var i = 0; i <= 11; i++){
+                donatesOrderCanceled.push(response.data.body[i].quantity)
+            }
+
+            console.log(donatesOrderCanceled)
+
+
+        } catch (error) {
+            console.log('Error Get Donates Order Canceled to Dash By User! Try again!');
+        }
+    }
+
+    async function getAllUsersRegisteredes() {
+        try {
+            const response = await Api.get(`/api/v1/user/findAllUsers?roleName&year`);
+
+            for(var i = 0; i <= 11; i++){
+                users.push(response.data.body[i].quantity)
+            }
+            console.log(users)
+
+
+        } catch (error) {
+            console.log('Error Get Users to Dash By User! Try again!');
+        }
+    }
+
+    useEffect(() => {
+        getAllDonationsByYear();
+        getAllDonationsOrderByYearAndStatusSuccess();
+        getAllUsersRegisteredes();
+        getAllDonationsOrderByYearAndStatusCanceled();
+    }, [])
+
 
     return (
         <>
@@ -48,12 +124,22 @@ function Us() {
                         <Graphic
                             className="graphic"
                             name={"Usuários cadastrados"}
-                            data={dataUser}
+                            data={users}
                         />
                         <Graphic
                             className="graphic"
                             name={"Doações cadastradas"}
-                            data={dataDonate}
+                            data={donates}
+                        />
+                        <Graphic
+                            className="graphic"
+                            name={"Doações Finalizadas com Sucesso"}
+                            data ={donatesOrder}
+                        />
+                        <Graphic
+                            className="graphic"
+                            name={"Doações Canceladas"}
+                            data ={donatesOrderCanceled}
                         />
                     </div>
                 </div>

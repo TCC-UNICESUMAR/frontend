@@ -4,7 +4,7 @@ import  './index.css'
 
 function Graphic( {name, data} ) {
 
-    console.log(name)
+    console.log(data) 
 
     const options = {
         xaxis: {
