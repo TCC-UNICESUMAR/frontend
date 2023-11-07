@@ -14,7 +14,6 @@ function New_photo({ state }) {
     const [files, setFiles] = useState([]);
 
     async function updatePhotoUser(data) {
-        console.log(data)
 
         let formData = new FormData();
 

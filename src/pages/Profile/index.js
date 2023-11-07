@@ -16,6 +16,13 @@ function Profile() {
 
     const [response, setResponse] = useState('');
     const accessToken = localStorage.getItem('accessToken');
+    const [id, setId] = useState('');
+    const [cep, setCep] = useState('');
+    const [city, setCity] = useState('');
+    const [uf, setUf] = useState('');
+    const [complement, setComplement] = useState('');
+    const [streetName, setStreetName] = useState('');
+
 
     const [state, setState] = useState("undefined");
     console.log(state)
@@ -35,12 +42,33 @@ function Profile() {
                 }
             })
             setResponse(response.data.body);
+            setId(response.data.body.id)
+            setCep(response.data.body.address.zipCode)
+            setStreetName(response.data.body.address.streetName)
+            setUf(response.data.body.address.state.stateName)
+            setCity(response.data.body.address.city.cityName)
+            setComplement(response.data.body.address.complement)
         } catch (error) {
             alert('Error Get User By Session! Try again!');
         }
     }
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    async function userUpdate(data) {
+        try {
+            var url = "api/v1/user/" + id;
+            await Api.put(url, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+
+                }
+            });
+            setState("success");
+        } catch (err) {
+            setState("error");
+        }
+    };
 
     useEffect(() => {
         getUser();
@@ -76,7 +104,7 @@ function Profile() {
                         null
                     }
                 </div>
-                <form className="form-double" onSubmit={handleSubmit()}>
+                <form className="form-double" onSubmit={handleSubmit(userUpdate)}>
                     <h2>Dados da conta</h2>
                     <div className="container-main-double">
                         <div className="container-data-double">
@@ -90,7 +118,7 @@ function Profile() {
                             />
                             <input
                                 className="field"
-                                defaultValue={response.cnpjOrCpf}
+                                defaultValue={response.cpfOrCnpj}
                                 type="text"
                                 placeholder="*CPF/CNPJ"
                                 {...register("cnpjOrCpf", { required: true })}
@@ -137,16 +165,16 @@ function Profile() {
                         <div className='content-address'>
                             <input
                                 className="field"
-                                defaultValue={response.cep}
+                                defaultValue={cep}
                                 type="text"
                                 placeholder="*CEP"
-                                {...register("cep", { required: true })}
+                                {...register("address.zipCode", { required: true })}
                             />
                             <input
                                 className="field"
                                 type="text"
                                 placeholder="*Endereço"
-                                defaultValue={response.streetName}
+                                defaultValue={streetName}
                                 {...register("address.streetName", { required: true })}
                             />
                             {errors?.streetName?.type == 'required' &&
@@ -156,7 +184,7 @@ function Profile() {
                                 className="field"
                                 type="text"
                                 placeholder="*Cidade"
-                                defaultValue={response.city}
+                                defaultValue={city}
                                 {...register("address.city", { required: true })}
                             />
                         </div>
@@ -168,7 +196,7 @@ function Profile() {
                                 className="field"
                                 type="text"
                                 placeholder="*UF"
-                                defaultValue={response.uf}
+                                defaultValue={uf}
                                 {...register("address.uf", { required: true })}
                             />
                             {errors?.uf?.type == 'required' &&
@@ -178,6 +206,7 @@ function Profile() {
                                 className="field"
                                 type="text"
                                 placeholder="*Complemento"
+                                defaultValue={complement}
                                 {...register("address.complement", { required: true })}
                             />
                             {errors?.complement?.type == 'required' &&

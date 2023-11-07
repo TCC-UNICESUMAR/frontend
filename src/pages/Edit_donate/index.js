@@ -6,6 +6,8 @@ import Api from '../../config/Service/Api'
 
 import '../../default.css';
 import Header from "../../components/Header";
+import ca from "date-fns/esm/locale/ca/index.js";
+import Modal from "../../components/Modal";
 
 function Edit_donate() {
 
@@ -14,8 +16,17 @@ function Edit_donate() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const { donationId } = useParams();
-
+    const [state, setState] = useState("undefined");
     const [response, setResponse] = useState('');
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [description, setDescription] = useState('');
+    const [cep, setCep] = useState('');
+    const [city, setCity] = useState('');
+    const [uf, setUf] = useState('');
+    const [complement, setComplement] = useState('');
+    const [streetName, setStreetName] = useState('');
+    const [category, setCategory] = useState('');
 
     async function getDonationById() {
         try {
@@ -25,11 +36,34 @@ function Edit_donate() {
                 }
             })
             setResponse(resp.data.body);
+            setStreetName(resp.data.body.address.streetName)
+            setUf(resp.data.body.address.state.uf)
+            setCity(resp.data.body.address.city.cityName)
+            setComplement(resp.data.body.address.complement)
+            setCategory(resp.data.body.product.category.categoryName)
+            setDescription(resp.data.body.product.description)
+            setQuantity(resp.data.body.product.quantity)
+            setName(resp.data.body.product.name)
+            setCep(resp.data.body.address.zipCode)
             console.log("Response donate: ",response)
         } catch (error) {
             alert('Error recovering category name! Try again!');
         }
     }
+
+    async function updateDonation(data) {
+        try {
+            const resp = await Api.put(`api/v1/donation/${donationId}`, data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            setState("success");
+        } catch (err) {
+            setState("error");
+        }
+    }
+
 
     useEffect(() => {
         getDonationById();
@@ -39,7 +73,12 @@ function Edit_donate() {
     return (
         <>
             <Header />
-            <form className="form-double" onSubmit={handleSubmit("")}>
+            <Modal
+                message={"Erro ao atualizar Doação!"}
+                state={state}
+                redirect={"/"}
+            />
+            <form className="form-double" onSubmit={handleSubmit(updateDonation)}>
                 <h2>Dados da doação</h2>
                 <div className="container-main-double">
                     <div className="container-data-double">
@@ -47,6 +86,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Título"
+                            defaultValue={name}
                             {...register("name", { required: true })}
                         />
                         {errors?.name?.type == 'required' &&
@@ -56,6 +96,7 @@ function Edit_donate() {
                             className="field-description"
                             type="text"
                             placeholder="*Descrição do produto"
+                            defaultValue={description}
                             {...register("description", { required: true, max: 50 })}
                         />
                         {errors?.description?.type == 'required' &&
@@ -68,6 +109,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Categoria"
+                            defaultValue={category}
                             {...register("category", { required: true })}
                         />
                         {errors?.category?.type == 'required' &&
@@ -77,6 +119,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Quantidade"
+                            defaultValue={quantity}
                             {...register("quantity", { required: true })}
                         />
                         {errors?.quantity?.type == 'required' &&
@@ -98,6 +141,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*CEP"
+                            defaultValue={cep}
                             {...register("address.zipCode", { required: true })}
                         />
                         {errors?.zipCode?.type == 'required' &&
@@ -107,6 +151,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Endereço"
+                            defaultValue={streetName}
                             {...register("address.streetName", { required: true })}
                         />
                         {errors?.streetName?.type == 'required' &&
@@ -116,6 +161,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Cidade"
+                            defaultValue={city}
                             {...register("address.city", { required: true })}
                         />
                         {errors?.city?.type == 'required' &&
@@ -125,6 +171,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*UF"
+                            defaultValue={uf}
                             {...register("address.uf", { required: true })}
                         />
                         {errors?.uf?.type == 'required' &&
@@ -134,6 +181,7 @@ function Edit_donate() {
                             className="field"
                             type="text"
                             placeholder="*Complemento"
+                            defaultValue={complement}
                             {...register("address.complement", { required: true })}
                         />
                         {errors?.complement?.type == 'required' &&
