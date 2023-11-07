@@ -13,7 +13,7 @@ function New_photo({ state }) {
     const navigate = useNavigate();
     const [files, setFiles] = useState([]);
 
-    async function updatePhotoUser(data) {
+    async function updatePhotoUser() {
 
         let formData = new FormData();
 

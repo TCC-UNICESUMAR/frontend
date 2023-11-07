@@ -8,17 +8,29 @@ import './index.css';
 function Header() {
 
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken !== null) {
+    
+    var role = null;
+    if (accessToken !== null && accessToken !== undefined) {
         var decoded = jwt_decode(accessToken);
-        var role = decoded.roles[0].authority;
+        role = decoded.roles[0].authority
     }
 
-    return (
+    if (accessToken === null) {
+        return (
+            <>
+                <Header_desktop role={undefined}/>
+                <Header_mobile role={undefined}/>
+            </>
+        );  
+    }
+
+    return(
         <>
             <Header_desktop role={role}/>
-            <Header_mobile role={role}/>
+            <Header_mobile role={"ROLE_USER"}/>
         </>
-    );
+    )
+
 }
 
 export default Header;

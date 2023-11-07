@@ -81,9 +81,9 @@ function Profile() {
             <New_photo state={state}/>
             <div className="container-main-profile">
                 <div className="container-photo-user">
-                    {response.profileImageId == ! null ?
+                    {response.profileImage === null ?
                         <div className='back-photo-user'>
-                            <img></img>
+                            <img src={profileDefault} />
                             <CiEdit className='edit-photo-user'
                                 onClick={() => setState("active")}
                             />

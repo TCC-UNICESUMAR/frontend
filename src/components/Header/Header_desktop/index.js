@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
 import logo from './../../../static/img/LogoBFN_header.png';
@@ -13,21 +13,7 @@ function Header_desktop({ role }) {
     const onClick = () => setIsActive(!isActive);
 
     async function logout() {
-
-        const accessToken = localStorage.getItem('accessToken');
-        try {
-            await Api.get('/api/v1/auth/logout', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-            localStorage.clear();
-            <Navigate to="/" />
-
-        } catch (error) {
-            alert('Error Logout! Try again!');
-        }
-       
+        localStorage.clear();
     }
 
     return (
@@ -65,7 +51,7 @@ function Header_desktop({ role }) {
                                             <Link to="/perfil">Perfil</Link>
                                         </li>
                                         <li>
-                                            <Link onClick={logout} to="/">Sair</Link>
+                                            <Link onClick={() => logout()} to="/">Sair</Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -108,7 +94,6 @@ function Header_desktop({ role }) {
                         <div className="link-header-desktop">
                             <Link to={'/feed'}>Feed</Link>
                             <Link to={'/dashboard'}>Dashboard</Link>
-                            <Link to={'/*'}>Relatórios</Link>
                         </div>
                         <div className='container-profile'>
                             <div className='menu-container'>
