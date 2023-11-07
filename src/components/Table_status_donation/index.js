@@ -15,11 +15,25 @@ function Table_status_donation(props) {
     const [state, setState] = useState("undefined");
     const [donationOrder, setDonationOrder] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
+    const [name, setName] = useState('');
 
     const formatDate = (date) => {
         return format(parseISO(date), "dd 'de' MMMM 'de' yyyy", {
             locale: ptBR
         })
+    }
+
+    async function getUser() {
+        try {
+            let response = await Api.get('/api/v1/user/getUserBySession', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            setName(response.data.body.name);
+        } catch (error) {
+            alert('Error Get User By Session! Try again!');
+        }
     }
 
     async function waitingDonorSend(id) {
@@ -49,6 +63,10 @@ function Table_status_donation(props) {
             setState("error");
         }
     }
+
+    useEffect(() => {
+        getUser();
+    }, [])
 
     if (props.donations == 0) {
         return (
@@ -100,20 +118,36 @@ function Table_status_donation(props) {
                                     <td>{formatDate(donationOrder.createdAt)}</td>
                                     <td className='field-reason'>{donationOrder.reason}</td>
                                     <td className='container-button-status'>
-                                        <button value={true}>
-                                            {
-                                                donationOrder.needAnIntermediary === true ?
-                                                    <Link to={`/selecao_ong/${donationOrder.id}/${false}`}>
-                                                        <CiCircleCheck className='icon-button-table approve' />
-                                                    </Link>
-                                                    :
-                                                    <CiCircleCheck className='icon-button-table approve'
-                                                    />
+                                    {(() => {
+                                            switch (donationOrder.donationStatus.status) {
+                                                case 'WAITING_DONOR_APPROVED':
+                                                    if(donationOrder.received.name === name){
+                                                        return <p>Esperando Dono Aprovar</p>
+                                                    }else{
+                                                        return <Link to="/solitacoes_doacao">Aprovar</Link>
+                                                    }
+                                                case 'WAITING_ONG_APPROVED':
+                                                    return <p>Esperando Ong Aprovar</p>
+                                                case 'WAITING_DONOR_SEND':
+                                                    if(donationOrder.received.name === name){
+                                                        return <p>Esperando Chegar na Ong</p>
+                                                    }
+                                                    else if(donationOrder.donor.name === name){
+                                                        return <p>Esperando Você Enviar ate a ONG</p>
+                                                    }else{
+                                                        return <Link to="/solitacoes_doacao">Aprovar</Link>
+                                                    }
+                                                case 'WAITING_RECEIVED_PICKUP':
+                                                    return <p>Esperando Você retirar</p>
+                                                case 'CANCELED':
+                                                    return <p>Cancelado</p>
+                                                case 'SUCCESS':
+                                                    return <p>Finalizado</p>
+                                                default:
+                                                    return null
                                             }
-                                        </button>
-                                        <button >
-                                            <CiCircleRemove className='icon-button-table remove' />
-                                        </button>
+                                        })()}
+                                        
                                     </td>
                                 </tr>
                             ))
@@ -131,6 +165,8 @@ function Table_status_donation(props) {
                                     <td>
                                         {(() => {
                                             switch (donationOrder.donationStatus.status) {
+                                                case 'WAITING_DONOR_APPROVED':
+                                                    return <Link to="/solitacoes_doacao">Aprovar</Link>
                                                 case 'WAITING_ONG_APPROVED':
                                                     return <Link to="/solitacoes_doacao">Aprovar</Link>
                                                 case 'WAITING_DONOR_SEND':

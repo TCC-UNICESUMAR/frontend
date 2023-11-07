@@ -45,29 +45,37 @@ function Donation_status() {
         }
     }
 
-    async function findAllDonationsToOngApprove() {
+    async function findAllDonationOrdersByDonor() {
         try {
-            const response = await Api.get(`/api/v1/donation/findAllDonationsToOngApprove`, {
+            const response = await Api.get(`/api/v1/donation/findAllDonationOrdersByDonor`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
-            setDonationOrder([...donationOrder, ...response.data.body]);
+            setDonationOrder(response.data.body.content);
         } catch (error) {
             alert('Error Get Products By User! Try again!');
         }
     }
 
     useEffect(() => {
-        findAllDonationOrdersByIntermediary()
+        findAllDonationsOrdersByUser()
     }, [])
 
     return(
         <>
             <Header />
+
             {
                 role === "ROLE_USER" ?
+                    <>
                     <h2>Andamento dos seus pedidos de doação</h2>
+                        <div className="container-buttons-page">
+                            <button onClick={() => findAllDonationsOrdersByUser()}>Meus pedidos</button>
+                            <span></span>
+                            <button onClick={() => findAllDonationOrdersByDonor()}>Solicitações das minhas doações publicadas</button>
+                        </div>
+                    </>
                     :
                     <>
                         <h2>Andamento de pedidos de doação</h2>
