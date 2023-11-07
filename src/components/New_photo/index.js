@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Api from '../../config/Service/Api';
+import { useNavigate } from "react-router-dom";
 
 import '../../default.css'
 import './index.css'
@@ -9,7 +10,7 @@ function New_photo({ state }) {
 
     const accessToken = localStorage.getItem('accessToken');
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    const navigate = useNavigate();
     const [files, setFiles] = useState([]);
 
     async function updatePhotoUser(data) {

@@ -62,7 +62,7 @@ function Profile() {
                         </div>
                         :
                         <div className='back-photo-user'>
-                            <img src={profileDefault} />
+                            <img src={response.profileImage} />
                             <CiEdit className='edit-photo-user'
                                 onClick={() => setState("active")}
                             />
