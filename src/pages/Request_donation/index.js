@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
+
 import Api from "../../config/Service/Api";
 
 import Header from "../../components/Header";
@@ -7,6 +9,14 @@ import Table from "../../components/Table";
 function Request_donation() {
 
     const accessToken = localStorage.getItem('accessToken');
+
+    var role = "";
+
+    if (accessToken !== null) {
+        var decoded = jwt_decode(accessToken);
+        role = decoded.roles[0].authority;
+    }
+
     const [donationOrder, setDonationOrder] = useState([]);
 
     async function findAllDonationAndDonationsToApprove() {
@@ -22,24 +32,31 @@ function Request_donation() {
         }
     }
 
-    useEffect(() => {
-        findAllDonationAndDonationsToApprove();
-    }, [])
-
-    if (donationOrder == 0) {
-        return (
-            <div>
-                <Header />
-                <h2>Não há soliticações para você no momento</h2>
-            </div>
-        )
+    async function findAllDonationAndDonationsToApproveOng() {
+        try {
+            const response = await Api.get(`/api/v1/donation/findAllDonationsToOngApprove`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            setDonationOrder([...donationOrder, ...response.data.body]);
+        } catch (error) {
+            alert('Error Get Products By User! Try again!');
+        }
     }
+
+    useEffect(() => {
+
+        role === "ROLE_USER" ?
+            findAllDonationAndDonationsToApprove() :
+            findAllDonationAndDonationsToApproveOng()
+
+    }, [])
 
     return (
         <div>
             <Header />
-            <h2>Solicitações para suas doações</h2>
-            <Table donations={donationOrder} />
+            <Table donations={donationOrder} role={role} />
         </div>
     )
 }

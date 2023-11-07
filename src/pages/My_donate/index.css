@@ -7,6 +7,14 @@
     width: 16%;
 }
 
+.not-found{
+    margin-top: 4%;
+    margin-bottom: 3%;
+    font-size: 2vw;
+    font-weight: 600;
+    text-align: center;
+}
+
 /*Media*/
 
 @media (max-width: 414px) {

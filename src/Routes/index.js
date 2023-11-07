@@ -17,6 +17,7 @@ import User_register from '../pages/User_register';
 import ReasonDonation from '../pages/Reason_donation';
 import RequestDonation from '../pages/Request_donation';
 import Ong_selection from '../pages/Ong_selection';
+import Donation_status from '../pages/Donation_status';
 
 function RoutesApp() {
 
@@ -139,6 +140,15 @@ function RoutesApp() {
                     element={
                         <PrivateRoute >
                             <Ong_selection />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    exact path='/status_doacao'
+                    element={
+                        <PrivateRoute >
+                            <Donation_status />
                         </PrivateRoute>
                     }
                 />

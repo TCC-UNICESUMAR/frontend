@@ -57,6 +57,17 @@
     height: 50%;
 }
 
+.edit-photo-user{
+    position: absolute;
+    margin-left: 3.5%;
+    margin-top: 2.5%;
+    width: 4vh;
+    height: 4vh;
+    border-radius: 25px;
+    padding: 0.5%;
+    cursor: pointer;
+}
+
 /*Media*/
 
 @media (max-width: 414px) {

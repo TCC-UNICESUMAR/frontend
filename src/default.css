@@ -293,14 +293,26 @@ option:hover {
     .field {
         height: 3vw;
         margin-bottom: 7%;
-    }
-
-    .field {
-        font-size: 4vw;
+        font-size: 3.5vw !important;
     }
 
     .field::placeholder {
-        font-size: 4vw;
+        font-size: 3.5vw !important;
+    }
+
+    .field-select {
+        height: 4vh !important;
+        padding: 2% 2%;
+        font-size: 3.5vw !important;
+    }
+
+    .container-input-img{
+        height: 2vh !important;
+        margin-bottom: 5%;
+    }
+
+    .custom-file-input::before {
+        font-size: 3.5vw !important;
     }
 
     .error-message {
@@ -312,7 +324,16 @@ option:hover {
     .btn-submit {
         width: 20vh;
         height: 5vh;
-        font-size: 4vw;
+        font-size: 4vw !important;
+    }
+
+    .container-address{
+        display: block;
+        justify-content: space-between;
+    }
+    
+    .content-address{
+        width: 100%;
     }
 
 }

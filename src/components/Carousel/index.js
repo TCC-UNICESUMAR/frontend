@@ -10,11 +10,7 @@ import 'swiper/css/scrollbar';
 
 function Carousel(data) {
     register();
-
-    const images = [
-        { id: 1, url: 'https://img.olx.com.br/images/33/332368085444792.jpg' },
-        { id: 2, url: 'https://img.olx.com.br/images/17/170359685907571.jpg' }
-    ] 
+    const images = data.data;
 
     return(
         <Swiper

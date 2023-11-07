@@ -108,7 +108,7 @@ function Feed() {
             <>
                 <Header />
                 <div className="container-feed">
-                <div className="container-filter-feed">
+                <div className="container-filter-feed-off">
                     <h3>Estados</h3>
                     <select className="filter-select" defaultValue={ufDefault}
                         onChange={e => updateListMicroRegion(e.target.value)}

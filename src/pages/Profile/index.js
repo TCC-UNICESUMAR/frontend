@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 import Header from "../../components/Header";
 import Api from "../../config/Service/Api";
@@ -8,11 +9,23 @@ import Api from "../../config/Service/Api";
 import '../../default.css';
 import './index.css';
 import profileDefault from './../../static/img/edit_profile.png';
+import { CiEdit } from "react-icons/ci";
+import New_photo from '../../components/New_photo';
 
 function Profile() {
 
     const [response, setResponse] = useState('');
     const accessToken = localStorage.getItem('accessToken');
+
+    const [state, setState] = useState("undefined");
+    console.log(state)
+
+    var role = "";
+
+    if (accessToken !== null) {
+        var decoded = jwt_decode(accessToken);
+        role = decoded.roles[0].authority;
+    }
 
     async function getUser() {
         try {
@@ -37,19 +50,31 @@ function Profile() {
     return (
         <>
             <Header />
+            <New_photo state={state}/>
             <div className="container-main-profile">
                 <div className="container-photo-user">
                     {response.profileImageId == ! null ?
                         <div className='back-photo-user'>
                             <img></img>
+                            <CiEdit className='edit-photo-user'
+                                onClick={() => setState("active")}
+                            />
                         </div>
                         :
                         <div className='back-photo-user'>
                             <img src={profileDefault} />
+                            <CiEdit className='edit-photo-user'
+                                onClick={() => setState("active")}
+                            />
                         </div>
                     }
                     <h2>{response.name}</h2>
-                    <Link to="/minhas_doacoes">x doações ativas</Link>
+                    {
+                        role === "ROLE_USER" ? 
+                        <Link to="/minhas_doacoes">x doações ativas</Link>
+                        :
+                        null
+                    }
                 </div>
                 <form className="form-double" onSubmit={handleSubmit()}>
                     <h2>Dados da conta</h2>

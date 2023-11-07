@@ -1,0 +1,33 @@
+.container-photo-edit.active{
+    background-color: rgba(0, 0, 0, 0.384);
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+}
+
+.container-photo-edit.active form{
+    margin: auto;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-photo-edit.inactive{
+    display: none;
+}
+
+.container-input-photo-edit{
+    width: 72%;
+    max-width: 72%;
+    display: flex;
+    margin: auto;
+    height: 1.5vw;
+    padding: 4%;
+    border-radius: 25px;
+    background-color: white;
+    border: none;
+    outline-color: #9FDDAF;
+    margin-bottom: 3%;
+}

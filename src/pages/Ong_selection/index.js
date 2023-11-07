@@ -13,10 +13,12 @@ function Ong_selection() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const accessToken = localStorage.getItem('accessToken');
-    const [cityDonation, setCityDonation] = useState('');
     const [ongs, setOngs] = useState([]);
     const [state, setState] = useState("undefined");
     const { donationOrder } = useParams();
+
+    const [receivedName, setReceivedName] = useState('');
+    const [donationName, setDonationName] = useState('');
 
     async function getOngsByDonationCity() {
         try {
@@ -25,6 +27,8 @@ function Ong_selection() {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
+            setReceivedName(response.data.body.received.name);
+            setDonationName(response.data.body.donation.product.name);
                     
             const responseOngs = await Api.get(`/api/v1/user/findAllOngs/${response.data.body.donation.address.city.cityName}`, {
                 headers: {
@@ -66,7 +70,7 @@ function Ong_selection() {
                 redirect={"/"}
             />
             <form onSubmit={handleSubmit(approveDonationByDonor)}>
-                <h2>Doação de ... para ...</h2>
+                <h2>Doação de {donationName} para {receivedName}</h2>
                 <p className="p-ong-selection">Selecione a ONG mais próxima para direcionar sua doação:</p>
                 {ongs.map((ong) => (
                     <div className="container-radio" key={ong.id}>

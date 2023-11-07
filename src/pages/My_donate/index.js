@@ -42,16 +42,19 @@ function My_donate() {
         fetchMoreProducts();
     }, [])
 
-    console.log(donations)
+    if (donations == 0) {
+        return(
+            <>
+            <Header />
+                <h2 className="not-found">Você não possui doações ativas</h2>
+            </>
+        )
+    }
 
     return (
         <>
             <Header />
             <h2 className="title-page-mydonates">Minhas doações</h2>
-            <div>
-                <button onClick={''}>Doações ativas</button>
-                <button onClick={''}>Doações inativas</button>
-            </div>
             <Catalog 
                 donations={donations}
                 page={"my_donate"}

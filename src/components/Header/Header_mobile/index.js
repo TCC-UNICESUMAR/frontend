@@ -41,11 +41,11 @@ function Header_mobile({ role }) {
             </nav>
 
             <div className={menu_class}>
-                <Link to={'/feed'}>Feed</Link>
-                <Link to={'/*'}>Dashboard</Link>
-                <Link to={'/*'}>Relatórios</Link>
-                <Link to={'/perfil'}>Perfil</Link>
-                <Link onClick={logout} to="/">Sair</Link>
+                <Link className="link-header-mobile" to={'/feed'}>Feed</Link>
+                <Link className="link-header-mobile" to={'/*'}>Dashboard</Link>
+                <Link className="link-header-mobile" to={'/*'}>Relatórios</Link>
+                <Link className="link-header-mobile" to={'/perfil'}>Perfil</Link>
+                <Link className="link-header-mobile" onClick={logout} to="/">Sair</Link>
             </div>
             <img src={logo} />
         </div>

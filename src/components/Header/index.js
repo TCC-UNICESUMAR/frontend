@@ -16,6 +16,7 @@ function Header() {
     return (
         <>
             <Header_desktop role={role}/>
+            <Header_mobile role={role}/>
         </>
     );
 }

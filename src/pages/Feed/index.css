@@ -7,9 +7,29 @@
     background-color: #F3F3F3;
     max-width: 28%;
     width: 28%;
-    height: 80vh;
+    height: auto;
     display: flex;
     flex-direction: column;
+}
+
+.container-filter-feed-off{
+    background-color: #F3F3F3;
+    max-width: 23.7%;
+    width: 23.7%;
+    height: 81.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-filter-feed-off h3{
+    font-size: 1.2vw;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 2%;
+    margin-top: 15%;
+    text-decoration: underline;
+    color: #3E5744;
+    font-weight: 500;
 }
 
 .container-filter-feed h3{

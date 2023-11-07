@@ -40,10 +40,12 @@ td button{
 
 .icon-button-table.approve{
     color: #5AD679;
+    width: 8vh;
 }
 
 .icon-button-table.remove{
     color: #D65A61;
+    width: 8vh;
 }
 
 .line-data{
@@ -51,6 +53,46 @@ td button{
 }
 
 .field-reason{
-    max-width: 35%;
-    width: 35%;
+    max-width: 30%;
+    width: 30%;
+}
+
+.container-button-status{
+    max-width: 12%;
+    width: 12%;
+}
+
+.container-buttons-page{
+    display: flex;
+    width: 20%;
+    margin-top: 0;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    justify-content: space-between;
+}
+
+.container-buttons-page span{
+    width: 0.2vh;
+    height: 2.5vh;
+    background-color: #5AD679;
+}
+
+.container-buttons-page button{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 0.9vw;
+    color: #5AD679;
+    transition: 0.3s;
+}
+
+.container-buttons-page button:hover{
+    color: #2e9247;
+}
+
+.not-found{
+    text-align: left;
+    margin-left: 5%;
+    font-weight: 500;
+    font-size: 1.5vw;
 }

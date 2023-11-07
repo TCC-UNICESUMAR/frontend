@@ -49,6 +49,7 @@ function Header_desktop({ role }) {
                             <Link to={'/chat'}>Chat</Link>
                             <Link to={'/criar_doacao'}>Doar</Link>
                             <Link to={'/solitacoes_doacao'}>Solicitações</Link>
+                            <Link to={'/status_doacao'}>Status doação</Link>
                         </div>
                         <div className='container-profile'>
                             <div className='menu-container'>
@@ -77,7 +78,8 @@ function Header_desktop({ role }) {
                         <div className="link-header-desktop">
                             <Link to={'/feed'}>Feed</Link>
                             <Link to={'/*'}>Chat</Link>
-                            <Link to={'/*'}>Solicitações</Link>
+                            <Link to={'/solitacoes_doacao'}>Solicitações</Link>
+                            <Link to={'/status_doacao'}>Status doação</Link>
                         </div>
                         <div className='container-profile'>
                             <div className='menu-container'>

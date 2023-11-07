@@ -102,11 +102,17 @@
 
 .container-data-mission{
     display: flex;
+    width: 100%;
     margin-top: 2%;
+    justify-content: space-evenly;
+}
+
+.container-data-mission div{
+    margin-bottom: 2%;
 }
 
 .graphic{
-    width: 40vh;
+    width: 60vh;
 }
 
 /*Join*/

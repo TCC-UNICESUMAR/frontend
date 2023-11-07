@@ -1,18 +1,19 @@
 import { format, parseISO } from "date-fns";
 import ptBR from 'date-fns/locale/pt-BR';
 
-import './index.css'
+import './../Table/index.css'
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Api from "../../config/Service/Api";
 import Modal from "../Modal";
 
-function Table(props) {
+function Table_status_donation(props) {
 
     const data = props.donations;
     const [state, setState] = useState("undefined");
+    const [donationOrder, setDonationOrder] = useState([]);
     const accessToken = localStorage.getItem('accessToken');
 
     const formatDate = (date) => {
@@ -21,14 +22,10 @@ function Table(props) {
         })
     }
 
-    async function notApproveDonation(id) {
-        const request = {
-            approved: false,
-            idintermdiary: null,
-            donationOrderId: id
-        }
+    async function waitingDonorSend(id) {
+        const request = {donationOrderId : id}
         try {
-            await Api.post(`/api/v1/donation/sendDonorApproveDonation`, request, {
+            await Api.put(`/api/v1/donation/deliveryByDonor`, request, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -39,31 +36,10 @@ function Table(props) {
         }
     }
 
-    async function donorApproveDonation(id) {
-        const request = {
-            approved: true,
-            idintermdiary: null,
-            donationOrderId: id
-        }
+    async function waitingReceivedPickup(id) {
+        const request = {donationOrderId : id}
         try {
-            await Api.post(`/api/v1/donation/sendDonorApproveDonation`, request, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-            setState("success");
-        } catch (err) {
-            setState("error");
-        }
-    }
-
-    async function ongApproveDonation(id, status) {
-        const request = {
-            approved: status,
-            donationOrderId: id
-        }
-        try {
-            await Api.post(`/api/v1/donation/ongApproveDonation`, request, {
+            await Api.put(`/api/v1/donation/finishedDonation`, request, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -76,18 +52,18 @@ function Table(props) {
 
     if (props.donations == 0) {
         return (
-            <h2>Não há solicitações no momento</h2>
+            <h2 className="not-found">Não há solicitações no momento</h2>
         )
     }
 
     return (
         <>
             <Modal
-                message={"Erro ao solicitar aprovação!"}
+                message={"Erro! Tente novamente."}
                 state={state}
                 redirect={"/feed"}
             />
-            <h2>Solicitações para suas doações</h2>
+            
             <table border="1">
                 {
                     props.role === "ROLE_USER" ?
@@ -132,12 +108,11 @@ function Table(props) {
                                                     </Link>
                                                     :
                                                     <CiCircleCheck className='icon-button-table approve'
-                                                        onClick={() => donorApproveDonation(donationOrder.id)}
                                                     />
                                             }
                                         </button>
                                         <button >
-                                            <CiCircleRemove className='icon-button-table remove' onClick={() => notApproveDonation(donationOrder.id)} />
+                                            <CiCircleRemove className='icon-button-table remove' />
                                         </button>
                                     </td>
                                 </tr>
@@ -152,15 +127,30 @@ function Table(props) {
                                     <td>{donationOrder.donor.name}</td>
                                     <td>{donationOrder.received.name}</td>
                                     <td className='field-reason'>{donationOrder.reason}</td>
+                                    <td>{donationOrder.donationStatus.status}</td>
                                     <td>
-                                        <button value={true}>
-                                            <CiCircleCheck className='icon-button-table approve' 
-                                                onClick={() => ongApproveDonation(donationOrder.id, true)}
-                                            />
-                                        </button>
-                                        <button >
-                                            <CiCircleRemove className='icon-button-table remove' onClick={() => ongApproveDonation(donationOrder.id, false)} />
-                                        </button>
+                                        {(() => {
+                                            switch (donationOrder.donationStatus.status) {
+                                                case 'WAITING_ONG_APPROVED':
+                                                    return <Link to="/solitacoes_doacao">Aprovar</Link>
+                                                case 'WAITING_DONOR_SEND':
+                                                    return <Link
+                                                        onClick={() => waitingDonorSend(donationOrder.id)}>
+                                                        Confirmar entrega
+                                                    </Link>
+                                                case 'WAITING_RECEIVED_PICKUP':
+                                                    return <Link
+                                                        onClick={() => waitingReceivedPickup(donationOrder.id)}>
+                                                        Confirmar retirada
+                                                    </Link>
+                                                case 'CANCELED':
+                                                    return <p>Cancelado</p>
+                                                case 'SUCCESS':
+                                                    return <p>Finalizado</p>
+                                                default:
+                                                    return null
+                                            }
+                                        })()}
                                     </td>
                                 </tr>
                             ))
@@ -171,4 +161,4 @@ function Table(props) {
     )
 }
 
-export default Table;
+export default Table_status_donation;

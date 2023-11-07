@@ -1,26 +1,27 @@
-import Header from "../../components/Header";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
+import Api from "../../config/Service/Api";
+
+import Header from "../../components/Header";
 import Graphic from "../../components/Graphic";
 
 import pic_about_us from './../../static/img/pic_about_us.png';
 import './index.css';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Api from "../../config/Service/Api";
 
 function Us() {
 
-    let  donates = [];
-    let  donatesOrder = [];
-    let  users = [];
-    let  donatesOrderCanceled = [];
+    let donates = [];
+    let donatesOrder = [];
+    let users = [];
+    let donatesOrderCanceled = [];
 
 
     async function getAllDonationsByYear() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonations?year`);
 
-            for(var i = 0; i <= 11; i++){
+            for (var i = 0; i <= 11; i++) {
                 donates.push(response.data.body[i].quantity)
             }
 
@@ -36,7 +37,7 @@ function Us() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=SUCCESS&year=2023`);
 
-            for(var i = 0; i <= 11; i++){
+            for (var i = 0; i <= 11; i++) {
                 donatesOrder.push(response.data.body[i].quantity)
             }
 
@@ -52,7 +53,7 @@ function Us() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=CANCELED&year=2023`);
 
-            for(var i = 0; i <= 11; i++){
+            for (var i = 0; i <= 11; i++) {
                 donatesOrderCanceled.push(response.data.body[i].quantity)
             }
 
@@ -68,7 +69,7 @@ function Us() {
         try {
             const response = await Api.get(`/api/v1/user/findAllUsers?roleName&year`);
 
-            for(var i = 0; i <= 11; i++){
+            for (var i = 0; i <= 11; i++) {
                 users.push(response.data.body[i].quantity)
             }
             console.log(users)
@@ -121,26 +122,30 @@ function Us() {
                         </p>
                     </div>
                     <div className="container-data-mission">
-                        <Graphic
-                            className="graphic"
-                            name={"Usuários cadastrados"}
-                            data={users}
-                        />
-                        <Graphic
-                            className="graphic"
-                            name={"Doações cadastradas"}
-                            data={donates}
-                        />
-                        <Graphic
-                            className="graphic"
-                            name={"Doações Finalizadas com Sucesso"}
-                            data ={donatesOrder}
-                        />
-                        <Graphic
-                            className="graphic"
-                            name={"Doações Canceladas"}
-                            data ={donatesOrderCanceled}
-                        />
+                        <div>
+                            <Graphic
+                                className="graphic"
+                                name={"Usuários cadastrados"}
+                                data={users}
+                            />
+                            <Graphic
+                                className="graphic"
+                                name={"Doações cadastradas"}
+                                data={donates}
+                            />
+                        </div>
+                        <div>
+                            <Graphic
+                                className="graphic"
+                                name={"Doações finalizadas com sucesso"}
+                                data={donatesOrder}
+                            />
+                            <Graphic
+                                className="graphic"
+                                name={"Doações canceladas"}
+                                data={donatesOrderCanceled}
+                            />
+                        </div>
                     </div>
                 </div>
                 <span className="division"></span>
@@ -150,7 +155,7 @@ function Us() {
                         <p>
                             Você também pode fazer parte dessa jornada incrível! Se
                             você deseja doar, fazer voluntariado ou apenas conhecer
-                            histórias inspiradoras, estamos aqui para apoiar você. 
+                            histórias inspiradoras, estamos aqui para apoiar você.
                             Juntos, podemos transformar vidas e fazer a diferença em nosso mundo.
                             <br />
                             Better For Next é mais do que apenas um site, é um movimento

@@ -186,7 +186,7 @@
 
     .container-mobile-link-off a {
         z-index: 3;
-        font-size: 5vw;
+        font-size: 5vw !important;
         margin-left: 8%;
         color:#AFAFAF;
     }

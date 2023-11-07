@@ -64,7 +64,8 @@
 
 .donation-city{
     font-size: 1vw;
-    text-align: end;
+    width: 50%;
+    text-align: left;
 }
 
 .container-button-donation-edit button{
