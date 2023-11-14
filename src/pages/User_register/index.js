@@ -7,10 +7,12 @@ import '../../default.css';
 
 import Header from '../../components/Header';
 import Modal from "../../components/Modal";
+import Loading from "../../components/Loading";
 
 function User_register() {
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [loading, setLoanding] = useState(false);
 
     const [state, setState] = useState("undefined");
 
@@ -19,11 +21,20 @@ function User_register() {
     async function userRegister(data) {
         try {
             await Api.post('api/v1/user/register', data);
+            setLoanding(false)
             setState("success");
         } catch (err) {
             setState("error");
         }
     };
+
+    if (loading) {
+        return(
+            <>
+                            <Loading />
+            </>
+        )
+    }
 
     return (
         <>

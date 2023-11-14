@@ -10,13 +10,14 @@ import Graphic from "../../components/Graphic";
 import pic_about_us from './../../static/img/pic_about_us.png';
 import './index.css';
 import Loading from "../../components/Loading";
+import { set } from "date-fns";
 
 function Us() {
 
-    let donates = [];
-    let donatesOrder = [];
-    let users = [];
-    let donatesOrderCanceled = [];
+    const [donates, setDonates] = useState([]);
+    const [donatesOrder, setDonatesOrder] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [donatesOrderCanceled, setDonatesOrderCanceled] = useState([]);
 
     const [loading, setLoanding] = useState(true);
 
@@ -25,10 +26,11 @@ function Us() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonations?year`);
 
+            let listDonatesOrder = [];
             for (var i = 0; i <= 11; i++) {
-                donates.push(response.data.body[i].quantity)
+               listDonatesOrder.push(response.data.body[i].quantity)
             }
-
+            setDonates(listDonatesOrder)
             console.log(donates)
 
 
@@ -40,11 +42,11 @@ function Us() {
     async function getAllDonationsOrderByYearAndStatusSuccess() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=SUCCESS&year=2023`);
-
+            let listDonatesOrder = [];
             for (var i = 0; i <= 11; i++) {
-                donatesOrder.push(response.data.body[i].quantity)
+               listDonatesOrder.push(response.data.body[i].quantity)
             }
-
+            setDonatesOrder(listDonatesOrder)
             console.log(donatesOrder)
 
 
@@ -56,10 +58,12 @@ function Us() {
     async function getAllDonationsOrderByYearAndStatusCanceled() {
         try {
             const response = await Api.get(`/api/v1/donation/findAllDonationsOrder?status=CANCELED&year=2023`);
-
+            let listDonatesOrder = [];
             for (var i = 0; i <= 11; i++) {
-                donatesOrderCanceled.push(response.data.body[i].quantity)
+               listDonatesOrder.push(response.data.body[i].quantity)
             }
+
+            setDonatesOrderCanceled(listDonatesOrder)
 
             console.log(donatesOrderCanceled)
 
@@ -73,12 +77,12 @@ function Us() {
         try {
             const response = await Api.get(`/api/v1/user/findAllUsers?roleName&year`);
 
+            let listUsers = [];
             for (var i = 0; i <= 11; i++) {
-                users.push(response.data.body[i].quantity)
+                listUsers.push(response.data.body[i].quantity)
             }
+            setUsers(listUsers)
             console.log(users)
-            setLoanding(false);
-
         } catch (error) {
             console.log('Error Get Users to Dash By User! Try again!');
         }
@@ -89,6 +93,8 @@ function Us() {
         getAllDonationsOrderByYearAndStatusSuccess();
         getAllUsersRegisteredes();
         getAllDonationsOrderByYearAndStatusCanceled();
+        setLoanding(false);
+
     }, [])
 
     if (loading) {

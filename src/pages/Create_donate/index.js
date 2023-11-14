@@ -25,12 +25,12 @@ function Create_donate() {
     const [uf, setUf] = useState('');
     const [zipCode, setZipCode] = useState('');
 
-    const [loading, setLoanding] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     async function createDonate(data) {
-
+        setLoading(true);
         let formData = new FormData();
         formData.append("body", JSON.stringify(data));
 
@@ -45,6 +45,7 @@ function Create_donate() {
                     'content-type': 'multipart/form-data'
                 }
             })
+            setLoading(false);
             setState("success");
         } catch (err) {
             setState("error");
@@ -59,7 +60,7 @@ function Create_donate() {
                 }
             })
             setCategories(response.data.body);
-            setLoanding(false);
+            setLoading(false);
         } catch (error) {
             alert('Error recovering category name! Try again!');
         }

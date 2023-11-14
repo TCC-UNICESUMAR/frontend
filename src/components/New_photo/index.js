@@ -60,7 +60,6 @@ function New_photo(props) {
                         placeholder="*Foto"
                         accept="image/png,image/jpg,image/jpeg"
                         onChange={e => setFiles(e.target.files)}
-                        {...register("photo", { required: true })}
                     />
                 </div>
                 {errors?.photo?.type == 'required' &&

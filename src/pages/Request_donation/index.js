@@ -43,17 +43,18 @@ function Request_donation() {
                 }
             });
             setDonationOrder([...donationOrder, ...response.data.body]);
+            
         } catch (error) {
             alert('Error Get Products By User! Try again!');
         }
     }
 
     useEffect(() => {
-
+        setLoanding(true)
         role === "ROLE_USER" ?
             findAllDonationAndDonationsToApprove() :
             findAllDonationAndDonationsToApproveOng()
-
+        setLoanding(false)
     }, [])
 
     if (loading) {

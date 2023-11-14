@@ -88,8 +88,8 @@ function Table_status_donation(props) {
                         <thead>
                             <tr>
                                 <th>Doação</th>
-                                <th>Data</th>
                                 <th>Solicitante</th>
+                                <th>Data</th>
                                 <th>Motivo</th>
                                 <th>Status</th>
                             </tr>
@@ -161,7 +161,24 @@ function Table_status_donation(props) {
                                     <td>{donationOrder.donor.name}</td>
                                     <td>{donationOrder.received.name}</td>
                                     <td className='field-reason'>{donationOrder.reason}</td>
-                                    <td>{donationOrder.donationStatus.status}</td>
+                                    <td>{(() => {
+                                            switch (donationOrder.donationStatus.status) {
+                                                case 'WAITING_DONOR_APPROVED':
+                                                    return <p>Esperando Dono Aprovar</p>
+                                                case 'WAITING_ONG_APPROVED':
+                                                    return <p>Esperando ONG Aprovar</p>
+                                                case 'WAITING_DONOR_SEND':
+                                                    return <p>Esperando Dono Enviar</p>
+                                                case 'WAITING_RECEIVED_PICKUP':
+                                                    return <p>Esperando retirar</p>
+                                                case 'CANCELED':
+                                                    return <p>Cancelado</p>
+                                                case 'SUCCESS':
+                                                    return <p>Finalizado</p>
+                                                default:
+                                                    return null
+                                            }
+                                        })()}</td>
                                     <td>
                                         {(() => {
                                             switch (donationOrder.donationStatus.status) {
