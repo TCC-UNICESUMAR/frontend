@@ -31,3 +31,32 @@
     outline-color: #9FDDAF;
     margin-bottom: 3%;
 }
+
+.container-img-new-photo{
+    width: 30%;
+    height: 30%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.container-img-new-photo img{
+    max-width: 60%;
+    width: 60%;
+    margin: auto;
+    object-fit: cover;
+}
+
+.close{
+    width: 7%;
+    height: 10%;
+    background-color: #D65A61;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1vw;
+    cursor: pointer;
+}

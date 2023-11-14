@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import Api from "../../config/Service/Api"
@@ -50,6 +50,14 @@ function Product(props) {
         }
     }
 
+    async function sendUser(id) {
+        try {
+            navigate(`/chat/${id}`, { replace: true });
+        } catch (error) {
+            alert('Edit failed! Try again.');
+        }
+    }
+
     return (
         <div className="donation">
             <Modal
@@ -85,8 +93,12 @@ function Product(props) {
                         </div>
                         :
                         <div className='container-button-feed'>
-                            <button id='btn-request' onClick={() => propsDonation(props.donation.id)}>Solicitar</button>
-                            <button id='btn-msg'><CiLocationArrow1 className='icon-donation' /></button>
+                            <button id='btn-request' onClick={() => propsDonation(props.donation.id)}>
+                                Solicitar
+                            </button>
+                            <button id='btn-msg' onClick={() => sendUser(props.donation.userBy.id)}>
+                                <CiLocationArrow1 className='icon-donation' />
+                            </button>
                         </div>
                     }
                 </div>

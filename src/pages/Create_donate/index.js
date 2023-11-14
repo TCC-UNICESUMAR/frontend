@@ -8,6 +8,7 @@ import Modal from "../../components/Modal";
 
 import '../../default.css';
 import axios from "axios";
+import Loading from "../../components/Loading";
 
 function Create_donate() {
 
@@ -23,6 +24,8 @@ function Create_donate() {
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
     const [zipCode, setZipCode] = useState('');
+
+    const [loading, setLoanding] = useState(true);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -56,6 +59,7 @@ function Create_donate() {
                 }
             })
             setCategories(response.data.body);
+            setLoanding(false);
         } catch (error) {
             alert('Error recovering category name! Try again!');
         }
@@ -74,6 +78,15 @@ function Create_donate() {
     useEffect(() => {
         loadCategories();
     }, [])
+
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
 
     return (
         <>

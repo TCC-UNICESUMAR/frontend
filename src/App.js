@@ -3,7 +3,7 @@ import RoutesApp from "./Routes/index";
 
 function App() {
   return (
-      <RoutesApp />
+    <RoutesApp />
   );
 }
 

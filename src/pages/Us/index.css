@@ -15,7 +15,7 @@
 .green-square{
     width: 2.7%;
     background-color: #9FDDAF;
-    height: 6%;
+    height: 9%;
     color: transparent;
     position: absolute;
     transform: rotate(40deg);
@@ -26,7 +26,7 @@
 .white-square{
     width: 3.3%;
     border: solid 1px #9FDDAF;
-    height: 7%;
+    height: 11%;
     color: transparent;
     position: absolute;
     transform: rotate(40deg);

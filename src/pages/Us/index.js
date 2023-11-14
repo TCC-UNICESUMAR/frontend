@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Fade from 'react-reveal/Fade';
 
 import Api from "../../config/Service/Api";
 
@@ -8,6 +9,7 @@ import Graphic from "../../components/Graphic";
 
 import pic_about_us from './../../static/img/pic_about_us.png';
 import './index.css';
+import Loading from "../../components/Loading";
 
 function Us() {
 
@@ -15,6 +17,8 @@ function Us() {
     let donatesOrder = [];
     let users = [];
     let donatesOrderCanceled = [];
+
+    const [loading, setLoanding] = useState(true);
 
 
     async function getAllDonationsByYear() {
@@ -73,7 +77,7 @@ function Us() {
                 users.push(response.data.body[i].quantity)
             }
             console.log(users)
-
+            setLoanding(false);
 
         } catch (error) {
             console.log('Error Get Users to Dash By User! Try again!');
@@ -87,29 +91,40 @@ function Us() {
         getAllDonationsOrderByYearAndStatusCanceled();
     }, [])
 
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
 
     return (
         <>
             <Header />
             <div className="about-us-content">
-                <div className="content-about-group">
-                    <span className="green-square">.</span>
-                    <span className="white-square">.</span>
-                    <div className="text-about-us">
-                        <h2>Bem-vindo</h2>
-                        <p>
-                            Nós somos Better For Next, o seu espaço dedicado
-                            a conectar pessoas com um desejo genuíno de ajudar
-                            aquelas que mais necessitam. Somos uma plataforma
-                            que acredita na força da compaixão e na capacidade de
-                            transformação que existe em cada um de nós quando estendemos
-                            a mão para ajudar o próximo.
-                        </p>
+                <Fade top>
+                    <div className="content-about-group">
+                        <span className="green-square">.</span>
+                        <span className="white-square">.</span>
+                        <div className="text-about-us">
+                            <h2>Bem-vindo</h2>
+                            <p>
+                                Nós somos Better For Next, o seu espaço dedicado
+                                a conectar pessoas com um desejo genuíno de ajudar
+                                aquelas que mais necessitam. Somos uma plataforma
+                                que acredita na força da compaixão e na capacidade de
+                                transformação que existe em cada um de nós quando estendemos
+                                a mão para ajudar o próximo.
+                            </p>
+                        </div>
+                        <img src={pic_about_us} />
                     </div>
-                    <img src={pic_about_us} />
-                </div>
                 <span className="division"></span>
+                </Fade>
                 <div className="text-us-mission">
+                    <Fade top>
                     <div className="content-us-mission">
                         <h2>A Nossa Missão</h2>
                         <p>
@@ -121,6 +136,8 @@ function Us() {
                             causas que mais precisam deles.
                         </p>
                     </div>
+                    </Fade>
+                    <Fade left>
                     <div className="container-data-mission">
                         <div>
                             <Graphic
@@ -147,7 +164,9 @@ function Us() {
                             />
                         </div>
                     </div>
+                    </Fade>
                 </div>
+                <Fade cascade>
                 <span className="division"></span>
                 <div className="text-us-join">
                     <div className="content-us-join">
@@ -159,7 +178,7 @@ function Us() {
                             Juntos, podemos transformar vidas e fazer a diferença em nosso mundo.
                             <br />
                             Better For Next é mais do que apenas um site, é um movimento
-                            de bondade em crescimento. <Link to="/login">Junte-se a nós </Link> e faça parte dessa
+                            de bondade em crescimento. <Link to="/">Junte-se a nós </Link> e faça parte dessa
                             incrível comunidade dedicada a tornar o mundo um lugar mais
                             generoso e solidário para todos.
                             <br /> <br />
@@ -171,6 +190,7 @@ function Us() {
                         </p>
                     </div>
                 </div>
+                </Fade>
             </div>
         </>
     );

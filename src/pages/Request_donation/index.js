@@ -5,6 +5,7 @@ import Api from "../../config/Service/Api";
 
 import Header from "../../components/Header";
 import Table from "../../components/Table";
+import Loading from "../../components/Loading";
 
 function Request_donation() {
 
@@ -18,6 +19,7 @@ function Request_donation() {
     }
 
     const [donationOrder, setDonationOrder] = useState([]);
+    const [loading, setLoanding] = useState(true);
 
     async function findAllDonationAndDonationsToApprove() {
         try {
@@ -27,6 +29,7 @@ function Request_donation() {
                 }
             });
             setDonationOrder([...donationOrder, ...response.data.body]);
+            setLoanding(false);
         } catch (error) {
             alert('Error Get Products By User! Try again!');
         }
@@ -52,6 +55,15 @@ function Request_donation() {
             findAllDonationAndDonationsToApproveOng()
 
     }, [])
+
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
 
     return (
         <div>

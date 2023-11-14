@@ -127,18 +127,18 @@ function Table_status_donation(props) {
                                                         return <Link to="/solitacoes_doacao">Aprovar</Link>
                                                     }
                                                 case 'WAITING_ONG_APPROVED':
-                                                    return <p>Esperando Ong Aprovar</p>
+                                                    return <p>Esperando Ong aprovar</p>
                                                 case 'WAITING_DONOR_SEND':
                                                     if(donationOrder.received.name === name){
-                                                        return <p>Esperando Chegar na Ong</p>
+                                                        return <p>Esperando chegar na Ong</p>
                                                     }
                                                     else if(donationOrder.donor.name === name){
-                                                        return <p>Esperando Você Enviar ate a ONG</p>
+                                                        return <p>Esperando você enviar até a ONG</p>
                                                     }else{
                                                         return <Link to="/solitacoes_doacao">Aprovar</Link>
                                                     }
                                                 case 'WAITING_RECEIVED_PICKUP':
-                                                    return <p>Esperando Você retirar</p>
+                                                    return <p>Esperando você retirar</p>
                                                 case 'CANCELED':
                                                     return <p>Cancelado</p>
                                                 case 'SUCCESS':
@@ -166,7 +166,7 @@ function Table_status_donation(props) {
                                         {(() => {
                                             switch (donationOrder.donationStatus.status) {
                                                 case 'WAITING_DONOR_APPROVED':
-                                                    return <Link to="/solitacoes_doacao">Aprovar</Link>
+                                                    return <p>Aguarde</p>
                                                 case 'WAITING_ONG_APPROVED':
                                                     return <Link to="/solitacoes_doacao">Aprovar</Link>
                                                 case 'WAITING_DONOR_SEND':

@@ -100,6 +100,10 @@ form h2 {
     background-color: #59d678;
 }
 
+.btn-submit:hover {
+    background-color: #3e9654;
+}
+
 .error-message {
     color: #9c0909;
     font-size: 1vw;

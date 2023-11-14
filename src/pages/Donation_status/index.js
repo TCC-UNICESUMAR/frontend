@@ -5,6 +5,7 @@ import Api from "../../config/Service/Api";
 
 import Table_status_donation from "../../components/Table_status_donation";
 import Header from "../../components/Header";
+import Loading from "../../components/Loading";
 
 function Donation_status() {
 
@@ -18,6 +19,7 @@ function Donation_status() {
     }
 
     const [donationOrder, setDonationOrder] = useState([]);
+    const [loading, setLoanding] = useState(true);
 
     async function findAllDonationsOrdersByUser() {
         try {
@@ -27,6 +29,7 @@ function Donation_status() {
                 }
             });
             setDonationOrder(response.data.body.content);
+            setLoanding(false);
         } catch (error) {
             alert('Error Get Products By User! Try again!');
         }
@@ -62,6 +65,15 @@ function Donation_status() {
         findAllDonationsOrdersByUser()
     }, [])
 
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
+
     return(
         <>
             <Header />
@@ -79,7 +91,7 @@ function Donation_status() {
                     :
                     <>
                         <h2>Andamento de pedidos de doação</h2>
-                        <div className="container-buttons-page">
+                        <div className="container-buttons-page ong">
                             <button onClick={() => findAllDonationsOrdersByUser()}>Meus pedidos</button>
                             <span></span>
                             <button onClick={() => findAllDonationOrdersByIntermediary()}>Pedidos de outros</button>

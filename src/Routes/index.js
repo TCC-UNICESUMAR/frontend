@@ -18,6 +18,7 @@ import ReasonDonation from '../pages/Reason_donation';
 import RequestDonation from '../pages/Request_donation';
 import Ong_selection from '../pages/Ong_selection';
 import Donation_status from '../pages/Donation_status';
+import Chat from '../pages/Chat';
 
 function RoutesApp() {
 
@@ -152,6 +153,16 @@ function RoutesApp() {
                         </PrivateRoute>
                     }
                 />
+
+                <Route
+                    exact path='/chat/:id'
+                    element={
+                        <PrivateRoute >
+                            <Chat />
+                        </PrivateRoute>
+                    }
+                />
+
 
             </Routes>
         </BrowserRouter>

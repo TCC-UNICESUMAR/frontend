@@ -8,6 +8,7 @@ import './index.css'
 
 import Api from "../../config/Service/Api";
 import axios from "axios";
+import Loading from "../../components/Loading";
 
 
 function Feed() {
@@ -20,6 +21,7 @@ function Feed() {
     const [microRegion, setMicroRegion] = useState([]);
     const [state, setState] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const [ufSelection, setUfSelection] = useState(ufDefault);
     const [citySelection, setCitySelection] = useState();
@@ -39,6 +41,7 @@ function Feed() {
         const response = await Api.get(`/api/v1/donation/region/uf/${ufDefault}`);
         setDonations([...donations, ...response.data.body.content])
         setPage(page + 1);
+        setLoading(false);
     }
 
     async function fetchMoreProductsState(uf) {
@@ -102,6 +105,15 @@ function Feed() {
         listState();
         loadCategories();
     }, [])
+
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
 
     if (donations == 0) {
         return (

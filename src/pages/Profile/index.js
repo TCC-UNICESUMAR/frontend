@@ -11,6 +11,7 @@ import './index.css';
 import profileDefault from './../../static/img/edit_profile.png';
 import { CiEdit } from "react-icons/ci";
 import New_photo from '../../components/New_photo';
+import Loading from '../../components/Loading';
 
 function Profile() {
 
@@ -23,9 +24,9 @@ function Profile() {
     const [complement, setComplement] = useState('');
     const [streetName, setStreetName] = useState('');
 
-
-    const [state, setState] = useState("undefined");
-    console.log(state)
+    const [loading, setLoanding] = useState(true);
+    const [state, setState] = useState(false);
+    console.log("state profile:", state)
 
     var role = "";
 
@@ -48,6 +49,7 @@ function Profile() {
             setUf(response.data.body.address.state.stateName)
             setCity(response.data.body.address.city.cityName)
             setComplement(response.data.body.address.complement)
+            setLoanding(false);
         } catch (error) {
             alert('Error Get User By Session! Try again!');
         }
@@ -74,29 +76,37 @@ function Profile() {
         getUser();
     }, [])
 
-    console.log(response)
+    if (loading) {
+        return(
+            <>
+                <Header />
+                <Loading />
+            </>
+        )
+    }
+    
     return (
         <>
             <Header />
-            <New_photo state={state}/>
+            <New_photo state={state} imgUser={response.profileImage}/>
             <div className="container-main-profile">
                 <div className="container-photo-user">
                     {response.profileImage === null ?
                         <div className='back-photo-user'>
                             <img src={profileDefault} />
                             <CiEdit className='edit-photo-user'
-                                onClick={() => setState("active")}
+                                onClick={() => setState(true)}
                             />
                         </div>
                         :
                         <div className='back-photo-user'>
                             <img src={response.profileImage} />
                             <CiEdit className='edit-photo-user'
-                                onClick={() => setState("active")}
+                                onClick={() => setState(true)}
                             />
                         </div>
                     }
-                    <h2>{response.name}</h2>
+                    <h2 className='name-user'>{response.name}</h2>
                     {
                         role === "ROLE_USER" ? 
                         <Link to="/minhas_doacoes">x doações ativas</Link>
@@ -116,6 +126,9 @@ function Profile() {
                                 placeholder="*Nome"
                                 {...register("name", { required: true })}
                             />
+                            {errors?.name?.type == 'required' &&
+                                <p className="error-message">O campo nome é obrigatório.</p>
+                            }
                             <input
                                 className="field"
                                 defaultValue={response.cpfOrCnpj}
@@ -123,6 +136,9 @@ function Profile() {
                                 placeholder="*CPF/CNPJ"
                                 {...register("cnpjOrCpf", { required: true })}
                             />
+                            {errors?.cpnjOrCpf?.type == 'required' &&
+                                <p className="error-message">O campo CPF/CNPJ é obrigatório.</p>
+                            }
                             <input
                                 className="field"
                                 defaultValue={response.phone}
@@ -130,6 +146,9 @@ function Profile() {
                                 placeholder="*Telefone"
                                 {...register("phone", { required: true })}
                             />
+                            {errors?.phone?.type == 'required' &&
+                                <p className="error-message">O campo telefone é obrigatório.</p>
+                            }
                         </div>
                         <div className="container-data-double">
                             <h3 className="title-data-double">Dados do sistema</h3>
@@ -140,24 +159,36 @@ function Profile() {
                                 placeholder="*E-mail"
                                 {...register("email", { required: true })}
                             />
+                            {errors?.email?.type == 'required' &&
+                                <p className="error-message">O campo e-mail é obrigatório.</p>
+                            }
                             <input
                                 className="field"
                                 type="text"
                                 placeholder="*Confirmar e-mail"
                                 {...register("email_confirm", { required: true })}
                             />
+                            {errors?.email_confirm?.type == 'required' &&
+                                <p className="error-message">O campo confirmar e-mail é obrigatório.</p>
+                            }
                             <input
                                 className="field"
-                                type="text"
+                                type="password"
                                 placeholder="*Senha"
                                 {...register("password", { required: true })}
                             />
+                            {errors?.password?.type == 'required' &&
+                                <p className="error-message">O campo senha é obrigatório.</p>
+                            }
                             <input
                                 className="field"
-                                type="text"
+                                type="password"
                                 placeholder="*Confirmar senha"
                                 {...register("password_confirm", { required: true })}
                             />
+                            {errors?.password_confirm?.type == 'required' &&
+                                <p className="error-message">O campo confirmar senha é obrigatório.</p>
+                            }
                         </div>
                     </div>
                     <h3 className="title-data-double">Dados de endereço</h3>
@@ -170,6 +201,9 @@ function Profile() {
                                 placeholder="*CEP"
                                 {...register("address.zipCode", { required: true })}
                             />
+                            {errors?.zipCode?.type == 'required' &&
+                                <p className="error-message">O campo cep é obrigatório.</p>
+                            }
                             <input
                                 className="field"
                                 type="text"
@@ -187,11 +221,11 @@ function Profile() {
                                 defaultValue={city}
                                 {...register("address.city", { required: true })}
                             />
-                        </div>
-                        <div className='content-address'>
                             {errors?.city?.type == 'required' &&
                                 <p className="error-message">O campo cidade é obrigatório.</p>
                             }
+                        </div>
+                        <div className='content-address'>
                             <input
                                 className="field"
                                 type="text"
